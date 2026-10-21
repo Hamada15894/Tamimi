@@ -392,6 +392,42 @@ table.t{width:100%;border-collapse:separate;border-spacing:0;font-size:13px}
 #sheet.on .bg{opacity:1}
 #sheet.on .panel{transform:none;opacity:1}
 #sheet .grab{display:none}
+.mode-mobile .crd{border-radius:14px;padding:13px 14px;box-shadow:none;border-color:#ECEEF3}
+.mode-mobile .cards{display:grid;gap:10px;grid-template-columns:minmax(0,1fr)}.mode-mobile .crd{min-width:0}
+.crd .ct a{font-weight:700}.crd .ct .mut{font-weight:400;font-size:12px;color:var(--steel);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}.crd .ct>span{min-width:0}
+.crd .cm.one{flex-wrap:nowrap;overflow:hidden;white-space:nowrap}.crd .cm.one span{overflow:hidden;text-overflow:ellipsis;min-width:0}.crd .cm.one i{font-style:normal;opacity:.5}
+.mode-mobile .crd .cg{grid-template-columns:repeat(3,minmax(0,1fr))}
+.mode-mobile .crd:not(.sum) .cg>div:first-child b{color:var(--tx)}
+.mode-mobile .crd .cg b{font-size:17px}
+
+.tps.clip .tp.xtra{display:none}.tps-more{margin:10px auto 2px;display:flex}
+.mode-mobile .tp p{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.mode-mobile .tp:active p,.mode-mobile .tp:focus-within p{-webkit-line-clamp:unset}
+
+.sr{display:flex;align-items:center;gap:12px;padding:12px 4px;border-bottom:1px solid #EEF0F4;cursor:pointer}
+.sr:last-of-type{border-bottom:0}.sr:active{background:#F7F8FA}
+.sr-rk{flex:0 0 28px;height:28px;border-radius:9px;background:#F1F2F6;color:#5B6172;font:700 13px/28px Inter,system-ui;text-align:center}
+.sr-rk.lead{background:#111827;color:#fff}
+.sr-m{flex:1;min-width:0}.sr-nm{display:block;font-weight:700;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sr-mt{font-size:12px;color:var(--steel);display:flex;align-items:center;gap:6px;margin-top:2px}.sr-mt i{width:7px;height:7px;border-radius:50%;display:inline-block}
+.sr-br{height:4px;border-radius:4px;background:#F0F1F5;margin-top:7px;overflow:hidden}.sr-br i{display:block;height:100%;border-radius:4px}
+.sr-v{text-align:end;flex:0 0 auto;display:flex;flex-direction:column;align-items:flex-end;gap:3px}.sr-v b{font-size:16px;font-variant-numeric:tabular-nums}.sr-v small{font-size:12px;color:var(--steel)}
+.sr-go{color:#B8BCC8;flex:0 0 16px}[dir=rtl] .sr-go{transform:scaleX(-1)}
+.srt{display:flex;gap:8px;overflow-x:auto;padding:2px 0 10px;scrollbar-width:none}.srt::-webkit-scrollbar{display:none}.srt .chip{flex:0 0 auto}
+.mode-mobile .pn.sl .tbar{display:none}
+.rq{padding-bottom:6px}.rq-h{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:6px}.rq-h h3{margin:0}.rq-h span{font-size:11px;color:var(--steel)}
+.rq-r{display:grid;grid-template-columns:minmax(92px,auto) 1fr auto;align-items:center;gap:10px;width:100%;padding:9px 6px;border:0;background:none;border-radius:10px;font:inherit;color:inherit;cursor:pointer;text-align:start}
+.rq-r.on{background:#F4F5F9}.rq-l{display:flex;flex-direction:column;font-weight:700;font-size:14px}.rq-l i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-inline-end:6px;vertical-align:middle}
+.rq-l>span{display:flex;align-items:center;gap:6px}.rq-l>span i{margin:0!important}
+.rq-l small{font-weight:500;color:var(--steel);font-size:11px;margin-top:1px}
+.rq-b{height:10px;background:#F0F1F5;border-radius:6px;overflow:hidden}.rq-b i{display:block;height:100%;border-radius:6px}
+.rq-v{text-align:end;display:flex;flex-direction:column}.rq-v b{font-size:14px;font-variant-numeric:tabular-nums}.rq-v small{font-size:11px;color:var(--steel)}
+
+.mode-mobile #filters .mrow.one{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:8px;padding:2px 2px 4px;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 14px,#000 calc(100% - 14px),transparent 100%)}
+.mode-mobile #filters .mrow.one::-webkit-scrollbar{display:none}
+.mode-mobile #filters .mrow.one .chip{flex:0 0 auto;white-space:nowrap}
+.chip.dd i{font-style:normal;opacity:.55;margin-inline-start:2px;font-size:11px}
+
 .mode-mobile .ph .acts:has([data-act="repPpt"]){display:grid;grid-template-columns:1fr auto auto;gap:8px;width:100%}
 .mode-mobile .ph .acts:has([data-act="repPpt"]) [data-act="repPpt"]{grid-column:1/-1;order:-1;justify-content:center;min-height:50px;font-size:16px}
 .mode-mobile .ph .acts:has([data-act="repPpt"]) #pzOrd{justify-content:center}
@@ -400,6 +436,7 @@ table.t{width:100%;border-collapse:separate;border-spacing:0;font-size:13px}
 .dk-file{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid var(--line,#E6E8EE);border-radius:14px;background:#FAFAFC}
 .dk-file b{display:block;font-size:13px;word-break:break-all}.dk-file small{color:var(--steel);font-size:12px}
 .dk-ppt{flex:0 0 38px;height:46px;border-radius:8px;background:linear-gradient(160deg,#E2572B,#B7361A);color:#fff;font:800 18px/46px Arial;text-align:center;box-shadow:0 4px 10px -4px rgba(183,54,26,.6)}
+.dk-ppt.xl{background:linear-gradient(160deg,#1E9E5A,#13703F);box-shadow:0 4px 10px -4px rgba(19,112,63,.6)}
 .dk-ok{margin-inline-start:auto;width:26px;height:26px;border-radius:50%;background:#E7F6EE;color:#1F8A4C;font-weight:800;display:grid;place-items:center;flex:0 0 26px}
 .dk-opts{display:grid;gap:10px}
 .dk-opt{display:flex;align-items:center;gap:14px;width:100%;padding:14px 16px;border:1px solid var(--line,#E6E8EE);border-radius:14px;background:#fff;cursor:pointer;text-align:start;transition:transform .12s,box-shadow .12s,border-color .12s;font:inherit;color:inherit}
@@ -722,6 +759,7 @@ html.mode-mobile .epd-b .btn.pri{flex-basis:100%}
 .ctb .tr i{display:block;height:100%;background:#0E8A5C;border-radius:3px}
 .ctb b{font-family:var(--num);min-width:44px;text-align:end}
 .mars-t{color:#0000A0}
+.mode-mobile #view>.sc-head{margin-bottom:14px}
 .sc-head{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:#2A2E3D;border-radius:14px;overflow:hidden;margin-bottom:2px;box-shadow:var(--sh-1)}
 .sc-head>div{background:var(--ink);padding:11px 13px;display:flex;flex-direction:column;gap:3px;min-width:0}
 .sc-head span{font-size:10.5px;color:#9AA0AE;font-weight:600;letter-spacing:.03em;text-transform:uppercase}
@@ -2279,6 +2317,12 @@ var TB = {};
     if (cfg.options.plugins.legend == null) cfg.options.plugins.legend = { position: 'bottom', rtl: A.lang === 'ar', labels: { boxWidth: 10, boxHeight: 10, usePointStyle: true } };
     cfg.options.plugins.tooltip = Object.assign({ rtl: A.lang === 'ar', backgroundColor: '#15171F', padding: 10, cornerRadius: 8 }, cfg.options.plugins.tooltip || {});
     cfg.options.animation = false;
+    if (A.mode === 'mobile' && window.Chart) { /* phone: bigger type, fewer ticks, quieter grid — readable at a glance */
+      Chart.defaults.font.size = 12; Chart.defaults.font.family = 'Inter, "IBM Plex Sans Arabic", system-ui, sans-serif';
+      if (cfg.type !== 'doughnut' && cfg.type !== 'pie') { cfg.options.scales = cfg.options.scales || {}; ['x', 'y'].forEach(function (k) { cfg.options.scales[k] = cfg.options.scales[k] || {}; }); }
+      var sc = cfg.options.scales || {}; Object.keys(sc).forEach(function (k) { var a = sc[k], isCat = (cfg.options.indexAxis === 'y' ? k === 'y' : k === 'x'); a.ticks = Object.assign(isCat ? { maxRotation: 0, autoSkip: false } : { maxTicksLimit: 5 }, a.ticks || {}); if (a.grid && a.grid.display !== false) a.grid.color = '#F0F1F5'; });
+      if (cfg.options.plugins.legend && cfg.options.plugins.legend.labels) cfg.options.plugins.legend.labels.padding = 14;
+    }
     var c = new Chart(el.getContext('2d'), cfg); A.charts.push(c); return c;
   };
   TB.clearCharts = function () { A.charts.forEach(function (c) { try { c.destroy(); } catch (e) { } }); A.charts = []; };
@@ -2316,15 +2360,20 @@ var TB = {};
     var T = A.tbl[id], root = document.getElementById('tb-' + id); if (!T || !root) return;
     var rows = TB.tableRows(id), cols = T.cols, show = rows.slice(0, T.lim);
     var cardsEl = root.querySelector('.cards');
-    if (cardsEl && T.opts.card) {
+    if (cardsEl && T.opts.peek && !T.opts.card) {
+      var tc0 = cols.filter(function (c) { return !c.n && c.h; }), sc0 = T.sort != null && cols[T.sort].n ? cols[T.sort] : cols.filter(function (c) { return c.n && c.h; })[0], mx0 = Math.max.apply(null, rows.map(function (r) { return +cellVal(sc0, r) || 0; }).concat([1]));
+      cardsEl.innerHTML = show.map(function (r, i) { var v = +cellVal(sc0, r) || 0;
+        return '<div class="sr' + (T.opts.click ? ' click" data-tr="' + id + '" data-ri="' + T.rows.indexOf(r) : '') + '"><span class="sr-rk' + (i < 3 ? ' lead' : '') + '">' + (i + 1) + '</span><div class="sr-m"><bdi class="sr-nm">' + esc(cellVal(tc0[0], r)) + '</bdi>' + (tc0[1] ? '<div class="sr-mt">' + esc(cellVal(tc0[1], r)) + '</div>' : '') + '<div class="sr-br"><i style="width:' + (v / mx0 * 100).toFixed(1) + '%;background:#D71920"></i></div></div><div class="sr-v"><b>' + cellHTML(sc0, r) + '</b></div>' + (T.opts.click ? '<svg class="sr-go" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg>' : '') + '</div>'; }).join('') || '<div class="crd" style="color:var(--steel)">' + t('none') + '</div>';
+    } else if (cardsEl && T.opts.card) {
       cardsEl.innerHTML = (T.opts.cardHead ? T.opts.cardHead(rows) : '') + (show.map(function (r, i) { return T.opts.card(r, i, rows); }).join('') || '<div class="crd" style="color:var(--steel)">' + t('none') + '</div>');
     } else if (cardsEl) {
       var tcols = cols.filter(function (c) { return !c.n && c.h; }), ncols = cols.filter(function (c) { return c.n && c.h; });
-      var title = tcols[0], meta = tcols.slice(1, 5), metrics = ncols.slice(0, 4); tcols.forEach(function (c) { if (c.card && meta.indexOf(c) < 0) meta.push(c); });
-      if (T.sort != null && cols[T.sort].n && metrics.indexOf(cols[T.sort]) < 0) metrics = [cols[T.sort]].concat(metrics.slice(0, 3));
+      if (tcols[1] && rows[0] && /^[\d\s#\-\/]+$/.test(String(cellVal(tcols[0], rows[0]) || ''))) tcols = [tcols[1], tcols[0]].concat(tcols.slice(2));
+      var title = tcols[0], meta = tcols.slice(1, 3), metrics = ncols.slice(0, 3); tcols.forEach(function (c) { if (c.card && meta.indexOf(c) < 0) meta.push(c); });
+      if (T.sort != null && cols[T.sort].n && metrics.indexOf(cols[T.sort]) < 0) metrics = [cols[T.sort]].concat(metrics.slice(0, 2));
       var html = show.map(function (r) {
         return '<div class="crd' + (T.opts.click ? ' click" data-tr="' + id + '" data-ri="' + T.rows.indexOf(r) : '') + '"><div class="ct"><span>' + (title ? cellHTML(title, r) : '') + '</span></div>' +
-          (meta.length ? '<div class="cm">' + meta.map(function (c) { var v = cellHTML(c, r); return v && v !== '–' ? '<span>' + v + '</span>' : ''; }).join('') + '</div>' : '') +
+          (meta.length ? '<div class="cm one">' + meta.map(function (c) { var v = c.x ? c.x(r) : cellVal(c, r); v = v == null ? '' : String(v); return v && v !== '–' ? '<span>' + esc(v) + '</span>' : ''; }).filter(Boolean).join('<i>·</i>') + '</div>' : '') +
           (metrics.length ? '<div class="cg">' + metrics.map(function (c) { return '<div><span><bdi>' + esc(c.h) + '</bdi></span><b>' + cellHTML(c, r) + '</b></div>'; }).join('') + '</div>' : '') + '</div>';
       }).join('');
       var TRm = T.opts.totalRow && rows.length ? T.opts.totalRow(rows) : null;
@@ -2591,9 +2640,11 @@ var TB = {};
       if (opt.period !== false && (f.p0 !== ps[0] || f.p1 !== ps[ps.length - 1])) h += '<button class="chip on" data-fclear="p">' + periodLabel() + ' ✕</button>';
       if (f.brand && kinds.indexOf('brand') > -1) h += '<button class="chip on" data-fclear="brand">' + esc(f.brand) + ' ✕</button>';
       if (opt.cycle) h += '<button class="chip" data-fpop="cycle">' + TB.svg('orders') + esc(cycleLabel()) + ' ▾</button>';
-      var rows = h ? '<div class="mrow">' + h + '</div>' : '';
-      if (kinds.indexOf('region') > -1) rows += '<div class="mrow g">' + optBtn('region', '', t('allRegions'), !f.region) + A.E.regions.map(function (r) { return optBtn('region', r, TB.tn(r), f.region === r, '<span class="dot" style="background:' + (TB.REGCOL[r] || '#999') + '"></span>'); }).join('') + '</div>';
-      if (kinds.indexOf('cat') > -1) rows += '<div class="mrow g">' + optBtn('cat', '', t('allCats'), !f.cat) + A.E.cats.map(function (c2) { return optBtn('cat', c2, TB.tn(c2), f.cat === c2, '<span class="dot" style="background:' + TB.CATCOL[c2] + '"></span>'); }).join('') + '</div>';
+      /* one tidy row: dropdown chips instead of walls of options */
+      var dd = '';
+      if (kinds.indexOf('region') > -1) dd += '<button class="chip dd' + (f.region ? ' on' : '') + '" data-fpop="region">' + (f.region ? '<span class="dot" style="background:' + ((TB.REGCOL || {})[f.region] || '#888') + '"></span>' + esc(TB.tn(f.region)) : esc(t('allRegions'))) + ' <i>▾</i></button>';
+      if (kinds.indexOf('cat') > -1) dd += '<button class="chip dd' + (f.cat ? ' on' : '') + '" data-fpop="cat">' + (f.cat ? '<span class="dot" style="background:' + TB.CATCOL[f.cat] + '"></span>' + esc(TB.tn(f.cat)) : esc(t('allCats'))) + ' <i>▾</i></button>';
+      var rows = (h || dd) ? '<div class="mrow one">' + dd + h + '</div>' : '';
       h = rows;
       el.innerHTML = h; top.classList.toggle('nof', !h);
       requestAnimationFrame(function () { $$('.mrow', el).forEach(function (r) { var on = $('.chip.on[data-fset]', r); if (on && on.scrollIntoView) { r.scrollLeft = 0; var rr = on.getBoundingClientRect(), pr = r.getBoundingClientRect(); if (rr.right > pr.right || rr.left < pr.left) r.scrollLeft += (rr.left - pr.left) - 40 * (A.lang === 'ar' ? -1 : 1); } }); });
@@ -2914,7 +2965,8 @@ var TB = {};
       out.push({ sev: nq.pct > A.S.highNqc ? 'red' : 'green', ic: 'ret', title: L('NQC is ' + pct(nq.pct) + ' of sales (' + t('p') + nq.w.p0 + '–' + t('p') + nq.w.p1 + ')', 'المرتجعات ' + pct(nq.pct) + ' من المبيعات (' + t('p') + nq.w.p0 + '–' + t('p') + nq.w.p1 + ')'), body: worst ? L('Highest in ' + tn(worst[0]) + ' at ' + pct(worst[1]) + '. Right-sizing orders on slow lines is the fastest fix.', 'الأعلى في ' + tn(worst[0]) + ' بنسبة ' + pct(worst[1]) + '. ضبط كميات الأصناف البطيئة هو الحل الأسرع.') : '', go: 'nqc' }); }
     return out;
   }
-  TB.tpHTML = function (list) { return '<div class="tps">' + list.map(function (x) { return '<div class="tp"><span class="ic ' + x.sev + '">' + TB.svg(x.ic) + '</span><div><b>' + esc(x.title) + '</b><p>' + esc(x.body) + '</p></div><button class="btn sm ghost go" data-go="' + x.go + '">' + (AR() ? '←' : '→') + '</button></div>'; }).join('') + '</div>'; };
+  TB.tpHTML = function (list) { var K = A.mode === 'mobile' ? 3 : 6; return '<div class="tps' + (list.length > K ? ' clip' : '') + '" style="--k:' + K + '">' + list.map(function (x, i) { return '<div class="tp' + (i >= K ? ' xtra' : '') + '"><span class="ic ' + x.sev + '">' + TB.svg(x.ic) + '</span><div><b>' + esc(x.title) + '</b><p>' + esc(x.body) + '</p></div><button class="btn sm ghost go" data-go="' + x.go + '">' + (AR() ? '←' : '→') + '</button></div>'; }).join('') + (list.length > K ? '<button class="btn sm tps-more" data-tpmore>' + esc(TB.LP('Show all ' + list.length + ' points', 'عرض كل النقاط (' + list.length + ')')) + '</button>' : '') + '</div>'; };
+  document.addEventListener('click', function (e) { var b = e.target.closest('[data-tpmore]'); if (!b) return; var w = b.closest('.tps'); w.classList.remove('clip'); b.remove(); });
 
   /* =================== OVERVIEW =================== */
   TB.pages.overview = {
@@ -3310,18 +3362,35 @@ var TB = {};
   }
   /* mobile: a ranked, compact card per store instead of a plain stack */
   function storeCard(r, i, rows) {
+    /* compact, calm row: rank · name + region · value + contribution, one thin bar */
     var col = TB.REGCOL[r.s.region] || '#9AA0AE', mx = rows.length ? Math.max.apply(null, rows.map(function (x) { return x.v; })) : 1;
-    return '<div class="sc click" data-tr="stL" data-ri="' + A.tbl.stL.rows.indexOf(r) + '">' +
-      '<div class="sc-rk' + (i < 3 ? ' lead' : '') + '">' + (i + 1) + '</div>' +
-      '<div class="sc-main">' +
-        '<div class="sc-top"><bdi class="sc-nm">' + esc(shortName(r.s.name)) + '</bdi><b class="sc-v">' + money(r.v) + '</b></div>' +
-        '<div class="sc-sub"><i style="background:' + col + '"></i><span>' + esc(tn(r.s.region)) + '</span><span>#' + esc(r.s.no == null ? '–' : r.s.no) + '</span><span>' + esc(t('ty_' + r.s.type)) + '</span><span class="sc-ctb">' + pct(r.ctb) + '</span></div>' +
-        '<div class="sc-bar"><i style="width:' + (mx ? r.v / mx * 100 : 0).toFixed(1) + '%;background:' + col + '"></i></div>' +
-        '<div class="sc-kp"><span><em>' + esc(t('nqcPct')) + '</em>' + TB.nqHeat(r.nqp) + '</span>' +
-          (r.ep != null ? '<span><em>EPOS</em><b>' + money(r.ep) + '</b></span><span><em>' + esc(t('st_epShareS')) + '</em><b class="mars-t">' + pct(r.eps) + '</b>' + (r.epv != null ? '<small>' + TB.mkPts(r.epv) + '</small>' : '') + '</span>' : '') +
-          '<span class="sc-sp">' + sparkSVG(r.spark, col) + '</span></div>' +
-      '</div></div>';
+    var T = A.tbl.stL, sc = T && T.sort != null ? T.cols[T.sort].h : '', side = '';
+    if (sc === t('nqcPct')) side = TB.nqHeat(r.nqp);
+    else if (sc === t('st_epShare')) side = r.eps == null ? '–' : '<b class="mars-t">' + pct(r.eps) + '</b>';
+    else if (sc === t('growth')) side = r.pv ? TB.delta(r.v, r.pv) : '–';
+    else side = '<small>' + pct(r.ctb) + '</small>';
+    return '<div class="sr click" data-tr="stL" data-ri="' + A.tbl.stL.rows.indexOf(r) + '">' +
+      '<span class="sr-rk' + (i < 3 ? ' lead' : '') + '">' + (i + 1) + '</span>' +
+      '<div class="sr-m"><bdi class="sr-nm">' + esc(shortName(r.s.name)) + '</bdi><div class="sr-mt"><i style="background:' + col + '"></i>' + esc(tn(r.s.region)) + ' · #' + esc(r.s.no == null ? '–' : r.s.no) + '</div>' +
+      '<div class="sr-br"><i style="width:' + (mx ? r.v / mx * 100 : 0).toFixed(1) + '%;background:' + col + '"></i></div></div>' +
+      '<div class="sr-v"><b>' + money(r.v) + '</b>' + side + '</div>' +
+      '<svg class="sr-go" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></div>';
   }
+  /* mobile: region quick-read bars + sort chips above the list */
+  function storeRegions(rows) {
+    var by = {}, tot = 0; rows.forEach(function (r) { var k = r.s.region; by[k] = by[k] || { v: 0, n: 0 }; by[k].v += r.v; by[k].n++; tot += r.v; });
+    var ks = Object.keys(by).sort(function (a, b) { return by[b].v - by[a].v; }), mx = ks.length ? by[ks[0]].v : 1;
+    return '<div class="pn rq"><div class="rq-h"><h3>' + esc(TB.LP('Sales by region', 'المبيعات حسب المنطقة')) + '</h3><span>' + esc(TB.LP('tap to filter', 'اضغط للتصفية')) + '</span></div>' + ks.map(function (k) {
+      var c = TB.REGCOL[k] || '#888', on = A.f.region === k;
+      return '<button class="rq-r' + (on ? ' on' : '') + '" data-fset="region|' + esc(on ? '' : k) + '"><span class="rq-l"><span><i style="background:' + c + '"></i>' + esc(tn(k)) + '</span><small>' + by[k].n + ' ' + esc(t('stores')) + '</small></span>' +
+        '<span class="rq-b"><i style="width:' + (by[k].v / mx * 100).toFixed(1) + '%;background:' + c + '"></i></span><span class="rq-v"><b>' + money(by[k].v) + '</b><small>' + pct(tot ? by[k].v / tot : 0) + '</small></span></button>';
+    }).join('') + '</div>';
+  }
+  function storeSortChips(cols) {
+    var T = A.tbl.stL, want = [[t('sales'), TB.LP('Sales', 'المبيعات')], [t('growth'), TB.LP('Growth', 'النمو')], [t('nqcPct'), TB.LP('Returns', 'المرتجعات')], [t('st_epShare'), TB.LP('Share vs comp.', 'الحصة')]];
+    return '<div class="srt">' + want.map(function (w) { var i = cols.map(function (c) { return c.h; }).indexOf(w[0]); if (i < 0) return ''; var on = T ? T.sort === i : i === 3; return '<button class="chip' + (on ? ' on' : '') + '" data-stsort="' + i + '">' + esc(w[1]) + '</button>'; }).join('') + '</div>';
+  }
+  document.addEventListener('click', function (e) { var b = e.target.closest('[data-stsort]'); if (!b) return; var T = A.tbl.stL; if (!T) return; var i = +b.getAttribute('data-stsort'); T.sort = i; T.dir = T.cols[i].h === t('nqcPct') ? -1 : -1; TB.$$('[data-stsort]').forEach(function (x) { x.classList.toggle('on', x === b); }); TB.drawTable('stL'); });
   function storeHead(rows) {
     var tot = sumBy(rows, function (r) { return r.v; }), n = sumBy(rows, function (r) { return r.nq; }), sv = sumBy(rows, function (r) { return r.nqp != null && r.nqp > 0 ? r.nq / r.nqp : 0; });
     var ea = sumBy(rows, function (r) { return r.ep || 0; }), eb = sumBy(rows, function (r) { return r.epT || 0; });
@@ -3334,7 +3403,8 @@ var TB = {};
       var rows = TB.storeRows();
       var h = TB.ph(t('st_title'), t('st_lead'), '<button class="btn" id="dlSt">' + TB.svg('dl') + t('dlTable') + '</button>');
       h += TB.nqcNote();
-      h += '<div class="pn">' + TB.table('stL', storeCols(rows), rows, { sort: 3, limit: 120, click: function (r) { TB.go('store/' + r.s.i); }, card: storeCard, cardHead: storeHead, file: 'Tamimi_Stores' }) + '<p class="hint">' + esc(t('st_heat')) + '</p></div>';
+      var sCols = storeCols(rows); if (A.mode === 'mobile') h += storeHead(rows) + storeRegions(rows);
+      h += '<div class="pn' + (A.mode === 'mobile' ? ' sl' : '') + '">' + (A.mode === 'mobile' ? storeSortChips(sCols) : '') + TB.table('stL', sCols, rows, { sort: 3, limit: A.mode === 'mobile' ? 15 : 120, click: function (r) { TB.go('store/' + r.s.i); }, card: storeCard, cardHead: A.mode === 'mobile' ? null : storeHead, file: 'Tamimi_Stores' }) + '<p class="hint">' + esc(t('st_heat')) + '</p></div>';
       return h;
     },
     after: function () { var b = document.getElementById('dlSt'); if (b) b.onclick = function () { TB.exportTable('stL'); }; }
@@ -4101,8 +4171,7 @@ var TB = {};
         X.utils.book_append_sheet(wb, ws, String(S.name).slice(0, 31));
       });
       var d = new Date(), stamp = d.getFullYear() + ('0' + (d.getMonth() + 1)).slice(-2) + ('0' + d.getDate()).slice(-2);
-      X.writeFile(wb, 'Tamimi_BDM_Data_' + stamp + '.xlsx', { compression: true });
-      TB.toast(TB.t('downloaded'));
+      TB.fileReady(new Blob([X.write(wb, { type: 'array', bookType: 'xlsx', compression: true })]), 'Tamimi_BDM_Data_' + stamp + '.xlsx', 'xlsx');
     } catch (e) { console.error(e); alert(e.message); } finally { TB.busy(false); }
   };
 })(TB);
@@ -4685,8 +4754,7 @@ var TB = {};
   async function save(wb, name) {
     var buf = await wb.xlsx.writeBuffer();
     var blob = new Blob([buf], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-    var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
-    TB.toast(t('downloaded'));
+    TB.fileReady(blob, name, 'xlsx');
   }
   TB.xlsxSave = save; TB.newWb = newWb;
   function stampName(base) { var d = new Date(); return base + '_' + d.getFullYear() + ('0' + (d.getMonth() + 1)).slice(-2) + ('0' + d.getDate()).slice(-2) + '.xlsx'; }
@@ -4715,7 +4783,7 @@ var TB = {};
       });
       var hEl = document.querySelector('.ph h1 bdi') || document.querySelector('.ph h1'), title = T.title || (hEl ? (hEl.childNodes[0] && hEl.childNodes[0].nodeType === 3 ? hEl.childNodes[0].nodeValue : hEl.textContent) : '') || (document.getElementById('abTitle') || {}).textContent || 'Export';
       sheet(wb, title.slice(0, 28), title, scopeText(), cols, rows, { totalRow: T.opts.totalRow && rows.length ? T.opts.totalRow(rows) : null });
-      await save(wb, stampName(T.file || ('Tamimi_' + id)));
+      await save(wb, stampName(T.file || (T.opts && T.opts.file) || ('Tamimi_' + id.replace(/_all$/, ''))));
     } finally { TB.busy(false); }
   };
 
@@ -6703,23 +6771,24 @@ var TB = {};
   TB.deckOut = async function (pptx, fn) {
     var blob = await pptx.write({ outputType: 'blob' });
     if (!(blob instanceof Blob)) blob = new Blob([blob], { type: PPTX_MIME });
-    A._deck = { blob: blob, fn: fn, at: Date.now() };
-    setTimeout(function () { TB.deckReady(); }, 30);
+    TB.fileReady(blob, fn, 'pptx');
   };
-  function deckFile() { var d = A._deck; return d ? new File([d.blob], d.fn, { type: PPTX_MIME }) : null; }
-  function deckMsg() { var AR = A.lang === 'ar'; return AR ? 'مراجعة أعمال مارس × أسواق التميمي — ' + TB.rangeLabel(TB.F()) + '. العرض مرفق.' : 'Mars × Tamimi Markets business review — ' + TB.rangeLabel(TB.F()) + '. The deck is attached.'; }
+  var MIMES = { pptx: PPTX_MIME, xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' };
+  TB.fileReady = function (blob, fn, kind) { kind = kind || 'pptx'; if (!(blob instanceof Blob)) blob = new Blob([blob], { type: MIMES[kind] }); A._deck = { blob: blob, fn: fn, kind: kind, at: Date.now() }; if (TB._autoSave) { saveDeck(); return; } setTimeout(function () { TB.deckReady(); }, 30); };
+  function deckFile() { var d = A._deck; return d ? new File([d.blob], d.fn, { type: MIMES[d.kind] || PPTX_MIME }) : null; }
+  function deckMsg() { var AR = A.lang === 'ar', x = A._deck && A._deck.kind === 'xlsx'; return AR ? (x ? 'تقرير مارس × أسواق التميمي — ' : 'مراجعة أعمال مارس × أسواق التميمي — ') + TB.rangeLabel(TB.F()) + (x ? '. الملف مرفق.' : '. العرض مرفق.') : (x ? 'Mars × Tamimi Markets report — ' : 'Mars × Tamimi Markets business review — ') + TB.rangeLabel(TB.F()) + (x ? '. The file is attached.' : '. The deck is attached.'); }
   function saveDeck() { var d = A._deck; if (!d) return; var u = URL.createObjectURL(d.blob), a = document.createElement('a'); a.href = u; a.download = d.fn; document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(u); }, 4000); }
   TB.canShareDeck = function () { try { var f = deckFile(); return !!(f && navigator.canShare && navigator.canShare({ files: [f] })); } catch (e) { return false; } };
   TB.shareDeck = async function (via) {
     var d = A._deck; if (!d) return; var AR = A.lang === 'ar', msg = deckMsg(), f = deckFile();
     if (TB.canShareDeck()) {
-      try { await navigator.share({ files: [f], title: d.fn.replace(/\.pptx$/, ''), text: msg }); TB.closeSheet(); return; }
+      try { await navigator.share({ files: [f], title: d.fn.replace(/\.(pptx|xlsx)$/, ''), text: msg }); TB.closeSheet(); return; }
       catch (e) { if (e && e.name === 'AbortError') return; }
     }
     /* this device cannot attach files from the browser: save the file, then open the app with the message ready */
     saveDeck();
     if (via === 'wa') window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
-    else if (via === 'mail') location.href = 'mailto:?subject=' + encodeURIComponent(d.fn.replace(/\.pptx$/, '').replace(/_/g, ' ')) + '&body=' + encodeURIComponent(msg);
+    else if (via === 'mail') location.href = 'mailto:?subject=' + encodeURIComponent(d.fn.replace(/\.(pptx|xlsx)$/, '').replace(/_/g, ' ')) + '&body=' + encodeURIComponent(msg);
     TB.toast(AR ? 'تم حفظ الملف — أرفقه في الرسالة' : 'File saved — attach it to the message');
   };
   TB.deckReady = function () {
@@ -6731,14 +6800,14 @@ var TB = {};
       more: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="18" cy="5.5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="18.5" r="2.5"/><path d="m8.2 10.8 7.6-4.1M8.2 13.2l7.6 4.1"/></svg>'
     };
     var row = function (k, t1, t2, cls) { return '<button class="dk-opt ' + (cls || '') + '" data-dk="' + k + '"><span class="i">' + ic[k] + '</span><span class="tx"><b>' + t1 + '</b><small>' + t2 + '</small></span></button>'; };
-    var body = '<div class="dk-ready"><div class="dk-file"><span class="dk-ppt">P</span><div><b>' + TB.esc(d.fn) + '</b><small><bdi dir="ltr">' + mb + ' MB · PowerPoint</bdi></small></div><span class="dk-ok">✓</span></div>' +
+    var body = '<div class="dk-ready"><div class="dk-file"><span class="dk-ppt' + (d.kind === 'xlsx' ? ' xl' : '') + '">' + (d.kind === 'xlsx' ? 'X' : 'P') + '</span><div><b>' + TB.esc(d.fn) + '</b><small><bdi dir="ltr">' + (d.blob.size < 1048576 ? Math.max(1, Math.round(d.blob.size / 1024)) + ' KB' : mb + ' MB') + ' · ' + (d.kind === 'xlsx' ? 'Excel' : 'PowerPoint') + '</bdi></small></div><span class="dk-ok">✓</span></div>' +
       '<div class="dk-opts">' +
       row('wa', AR ? 'إرسال واتساب' : 'Send on WhatsApp', AR ? 'اختر المحادثة وسيُرفق الملف' : 'Pick a chat — the file is attached', 'wa') +
       row('mail', AR ? 'إرسال بالإيميل' : 'Send by e-mail', AR ? 'Outlook أو Gmail مع الملف مرفقاً' : 'Outlook or Gmail with the file attached', 'mail') +
       row('save', mob ? (AR ? 'حفظ على الهاتف' : 'Save to phone') : (AR ? 'تحميل على الجهاز' : 'Download to this computer'), AR ? 'يُحفظ في التنزيلات' : 'Saved to Downloads', mob ? '' : 'pri') +
       (mob ? row('more', AR ? 'تطبيقات أخرى' : 'Other apps', AR ? 'Teams، Drive، Telegram…' : 'Teams, Drive, Telegram…') : '') +
       '</div>' + (TB.canShareDeck() || !mob ? '' : '<p class="hint">' + (AR ? 'هذا المتصفح لا يرفق الملفات مباشرة: سيُحفظ الملف ثم يُفتح التطبيق لتُرفقه.' : 'This browser cannot attach files directly: the file is saved, then the app opens for you to attach it.') + '</p>') + '</div>';
-    TB.openSheet(AR ? 'العرض جاهز' : 'Your deck is ready', body);
+    TB.openSheet(d.kind === 'xlsx' ? (AR ? 'الملف جاهز' : 'Your file is ready') : (AR ? 'العرض جاهز' : 'Your deck is ready'), body);
     TB.$$('[data-dk]').forEach(function (b) { b.onclick = function () { var k = b.getAttribute('data-dk'); if (k === 'save') { saveDeck(); TB.toast(t('downloaded')); TB.closeSheet(); } else TB.shareDeck(k); }; });
   };
   /* style picker: three looks with a live thumbnail of the cover */

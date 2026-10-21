@@ -392,6 +392,23 @@ table.t{width:100%;border-collapse:separate;border-spacing:0;font-size:13px}
 #sheet.on .bg{opacity:1}
 #sheet.on .panel{transform:none;opacity:1}
 #sheet .grab{display:none}
+.mode-mobile .ph .acts:has([data-act="repPpt"]){display:grid;grid-template-columns:1fr auto auto;gap:8px;width:100%}
+.mode-mobile .ph .acts:has([data-act="repPpt"]) [data-act="repPpt"]{grid-column:1/-1;order:-1;justify-content:center;min-height:50px;font-size:16px}
+.mode-mobile .ph .acts:has([data-act="repPpt"]) #pzOrd{justify-content:center}
+
+.dk-ready{display:flex;flex-direction:column;gap:14px;padding:4px 2px 6px}
+.dk-file{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid var(--line,#E6E8EE);border-radius:14px;background:#FAFAFC}
+.dk-file b{display:block;font-size:13px;word-break:break-all}.dk-file small{color:var(--steel);font-size:12px}
+.dk-ppt{flex:0 0 38px;height:46px;border-radius:8px;background:linear-gradient(160deg,#E2572B,#B7361A);color:#fff;font:800 18px/46px Arial;text-align:center;box-shadow:0 4px 10px -4px rgba(183,54,26,.6)}
+.dk-ok{margin-inline-start:auto;width:26px;height:26px;border-radius:50%;background:#E7F6EE;color:#1F8A4C;font-weight:800;display:grid;place-items:center;flex:0 0 26px}
+.dk-opts{display:grid;gap:10px}
+.dk-opt{display:flex;align-items:center;gap:14px;width:100%;padding:14px 16px;border:1px solid var(--line,#E6E8EE);border-radius:14px;background:#fff;cursor:pointer;text-align:start;transition:transform .12s,box-shadow .12s,border-color .12s;font:inherit;color:inherit}
+.dk-opt:hover{border-color:#C9CCD6;box-shadow:0 6px 18px -10px rgba(16,24,40,.35)}.dk-opt:active{transform:scale(.985)}
+.dk-opt .i{flex:0 0 42px;height:42px;border-radius:12px;display:grid;place-items:center;background:#F2F3F7;color:#3A3F52}
+.dk-opt .tx b{display:block;font-size:15px}.dk-opt .tx small{display:block;color:var(--steel);font-size:12px;margin-top:2px}
+.dk-opt.wa .i{background:#E6F7EC;color:#1FA855}.dk-opt.mail .i{background:#E8F0FD;color:#2A62D6}
+.dk-opt.pri{border-color:#D71920}.dk-opt.pri .i{background:#D71920;color:#fff}
+
 #sheet .panel.wide{width:min(1180px,96vw);max-height:90vh}
 .tbl.peek .more{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 4px 2px;border-top:1px solid var(--line,#E6E8EE);margin-top:6px}
 .tbl.peek .more span{font-size:12px;color:var(--steel)}
@@ -5374,7 +5391,7 @@ var TB = {};
   function T(th, o) { return Object.assign({ fontFace: th.font || 'Calibri', color: th.ink, margin: 0, valign: 'middle', align: 'center' }, o); }
   function rgba(hex, a) { hex = String(hex).replace('#', ''); return 'rgba(' + parseInt(hex.slice(0, 2), 16) + ',' + parseInt(hex.slice(2, 4), 16) + ',' + parseInt(hex.slice(4, 6), 16) + ',' + a + ')'; }
   function mix(hex, to, k) { hex = String(hex).replace('#', ''); to = String(to).replace('#', ''); var o = ''; for (var i = 0; i < 6; i += 2) { var a = parseInt(hex.slice(i, i + 2), 16), b = parseInt(to.slice(i, i + 2), 16), c = Math.round(a + (b - a) * k); o += ('0' + c.toString(16)).slice(-2); } return o.toUpperCase(); }
-  function canvas(wIn, hIn) { var c = document.createElement('canvas'); c.width = Math.round(wIn * DPI); c.height = Math.round(hIn * DPI); var x = c.getContext('2d'); x.scale(DPI, DPI); return { c: c, x: x }; }
+  function canvas(wIn, hIn, dpi) { dpi = dpi || DPI; var c = document.createElement('canvas'); c.width = Math.round(wIn * dpi); c.height = Math.round(hIn * dpi); var x = c.getContext('2d'); x.scale(dpi, dpi); return { c: c, x: x }; }
   function rrTop(x, X, Y, W, Hh, r) { r = Math.min(r, W / 2, Hh); x.beginPath(); x.moveTo(X, Y + Hh); x.lineTo(X, Y + r); x.quadraticCurveTo(X, Y, X + r, Y); x.lineTo(X + W - r, Y); x.quadraticCurveTo(X + W, Y, X + W, Y + r); x.lineTo(X + W, Y + Hh); x.closePath(); }
   function pill(x, X, Y, W, Hh) { var r = Hh / 2; x.beginPath(); x.moveTo(X + r, Y); x.lineTo(X + W - r, Y); x.arc(X + W - r, Y + r, r, -Math.PI / 2, Math.PI / 2); x.lineTo(X + r, Y + Hh); x.arc(X + r, Y + r, r, Math.PI / 2, Math.PI * 1.5); x.closePath(); }
   /* monotone cubic through points — smooth, never overshoots the data */
@@ -5845,7 +5862,7 @@ var TB = {};
   /* the Tamimi store photo, bled to the slide edge and dissolved into the page on the content side */
   TB.pptPhotoBlend = async function (pptx, s, o) {
     var im = await new Promise(function (res, rej) { var i = new Image(); i.onload = function () { res(i); }; i.onerror = rej; i.src = o.src || TB.STORE_PHOTO; });
-    var w = o.w, h = o.h, AR = !!o.ar, bg = String(o.bg || 'FFFFFF').replace('#', ''), C = canvas(w, h), x = C.x;
+    var w = o.w, h = o.h, AR = !!o.ar, bg = String(o.bg || 'FFFFFF').replace('#', ''), C = canvas(w, h, 160), x = C.x;
     var sc = Math.max(w / im.width, h / im.height), dw = im.width * sc, dh = im.height * sc, fx = o.focus == null ? 0.5 : o.focus;
     x.drawImage(im, Math.min(0, Math.max(w - dw, w / 2 - dw * fx)), (h - dh) * 0.45, dw, dh);
     if (o.grade) { x.save(); x.globalCompositeOperation = 'soft-light'; x.fillStyle = o.grade; x.fillRect(0, 0, w, h); x.restore(); }
@@ -5857,7 +5874,10 @@ var TB = {};
     var bot = x.createLinearGradient(0, h, 0, h * 0.76); bot.addColorStop(0, 'rgba(0,0,0,1)'); bot.addColorStop(1, 'rgba(0,0,0,0)'); x.fillStyle = bot; x.fillRect(0, h * 0.76, w, h * 0.24);
     var edge = AR ? x.createLinearGradient(0, 0, w * 0.08, 0) : x.createLinearGradient(w, 0, w - w * 0.08, 0); edge.addColorStop(0, 'rgba(0,0,0,0.5)'); edge.addColorStop(1, 'rgba(0,0,0,0)'); x.fillStyle = edge; x.fillRect(0, 0, w, h);
     x.restore();
-    s.addImage({ data: C.c.toDataURL('image/png'), x: o.x, y: o.y, w: w, h: h });
+    var outD;
+    if (o.flat) { var F = canvas(w, h, 160); F.x.fillStyle = '#' + bg; F.x.fillRect(0, 0, w, h); F.x.drawImage(C.c, 0, 0, w, h); outD = F.c.toDataURL('image/jpeg', 0.86); }
+    else outD = C.c.toDataURL('image/png');
+    s.addImage({ data: outD, x: o.x, y: o.y, w: w, h: h });
   };
 
   /* ---------- one page per region: achieved, growth / decline, by category ---------- */
@@ -5995,6 +6015,7 @@ var TB = {};
       var sh = sil('#3A2414'); x.save(); x.filter = 'blur(' + Math.round(ih * 0.035) + 'px)'; x.globalAlpha = 0.28; x.drawImage(sh, Math.round(iw * 0.01), Math.round(ih * 0.05)); x.restore();
       x.drawImage(im, ox, oy, iw, ih);
     }
+    var mxW = 1100; if (cw > mxW) { var c2 = document.createElement('canvas'); c2.width = mxW; c2.height = Math.round(ch * mxW / cw); var x2 = c2.getContext('2d'); x2.imageSmoothingQuality = 'high'; x2.drawImage(c, 0, 0, c2.width, c2.height); c = c2; }
     return { data: c.toDataURL('image/png'), ar: cw / ch, pad: pad };
   }
 
@@ -6405,7 +6426,7 @@ var TB = {};
     TB.busy(true, t('busy')); await TB.nextFrame();
     try {
       await loadLib();
-      if (th.alt) { await TB.altDeck(th.id); TB.toast(t('downloaded')); return; }
+      if (th.alt) { await TB.altDeck(th.id); return; }
       var AR = A.lang === 'ar', al = AR ? 'right' : 'left', E = A.E, f = TB.F(), sf = { region: A.f.region || null, cat: A.f.cat || null, brand: A.f.brand || null }, S = TB.SAR();
       var L = function (en, ar) { return AR ? ar : en; };
       var INK = th.ink, ACC = th.accent, ACC2 = th.accent2, SOFT = th.soft;
@@ -6579,7 +6600,7 @@ var TB = {};
         var rgn = regs[ri], rd = TB.regionPageData(rgn, f, pr), rgG = rd.g != null ? rd.g : rd.ea ? rd.ea.mg : null;
         s = pptx.addSlide({ masterName: 'C' });
         head(s, L('Region · ', 'المنطقة · ') + tn(rgn), L(tn(rgn) + ': ' + S + ' ' + money(rd.cur) + ' achieved' + (rgG == null ? '' : ', ' + (rgG >= 0 ? 'growing ' : 'declining ') + (rgG >= 0 ? '+' : '') + (rgG * 100).toFixed(1) + '%'), tn(rgn) + ': ' + money(rd.cur) + ' ' + S + ' متحقق' + (rgG == null ? '' : '، ' + (rgG >= 0 ? 'نمو ' : 'تراجع ') + (rgG * 100).toFixed(1) + '%')), TB.rangeLabel(f) + '  ·  ' + rd.stores + ' ' + t('stores') + '  ·  ' + pct(rd.share) + L(' of Tamimi sales', ' من مبيعات التميمي'));
-        await TB.pptPhotoBlend(pptx, s, { src: await TB.regionPhoto(TB.sceneFor(rgn), 'navy'), x: AR ? 0 : M + 8.1 - 0.2, y: 1.95, w: W - (M + 8.1 - 0.2), h: 5.0, ar: AR, bg: 'FFFFFF', focus: 0.55 });
+        await TB.pptPhotoBlend(pptx, s, { src: await TB.regionPhoto(TB.sceneFor(rgn), 'navy'), x: AR ? 0 : M + 8.1 - 0.2, y: 1.95, w: W - (M + 8.1 - 0.2), h: 5.0, ar: AR, bg: 'FFFFFF', flat: 1, focus: 0.55 });
         TB.pptRegion(pptx, s, { theme: CH, x: X(M, 8.1), y: 1.95, w: 8.1, h: 4.85, d: rd, L: L, S: S, prLabel: pr ? TB.rangeLabel(pr) : '' });
       }
 
@@ -6597,7 +6618,7 @@ var TB = {};
           s = pptx.addSlide({ masterName: 'C' });
           head(s, L('Market share · stores', 'الحصة السوقية · الفروع'), L('Where Mars is losing share', 'أين تخسر مارس حصة'), L('Existing stores, all loaded categories, same months vs last year', 'فروع قائمة، كل الفئات المحمّلة، نفس الأشهر مقابل العام الماضي'));
           var la = TB.eposAgg(lose.map(function (x) { return x.r; }));
-          await TB.pptPhotoBlend(pptx, s, { src: await TB.regionPhoto(TB.sceneFor(f.region), 'navy'), x: AR ? 0 : M + 8.1 - 0.2, y: 1.95, w: W - (M + 8.1 - 0.2), h: 5.0, ar: AR, bg: 'FFFFFF', focus: 0.55 });
+          await TB.pptPhotoBlend(pptx, s, { src: await TB.regionPhoto(TB.sceneFor(f.region), 'navy'), x: AR ? 0 : M + 8.1 - 0.2, y: 1.95, w: W - (M + 8.1 - 0.2), h: 5.0, ar: AR, bg: 'FFFFFF', flat: 1, focus: 0.55 });
           table(s, [t('store'), t('mk_ch'), L('Category sales', 'مبيعات الفئة'), L('Cat. growth', 'نمو الفئة'), L('Mars share', 'حصة مارس'), L('Chg pts', 'التغير'), L('Mars growth', 'نمو مارس')], lose.map(function (x) { var r = x.r; return [r.n, t('ch_' + r.ch), money(r.ty), gc(r.ly ? (r.ty - r.ly) / r.ly : null), { text: pct(r.mty / r.ty), options: { color: MARS, bold: true } }, ptsc(x.sv), gc(r.mly ? (r.mty - r.mly) / r.mly : null)]; }),
             [L('Total (', 'الإجمالي (') + lose.length + ')', '', money(la.ty), gc(la.g), pct(la.sh), ptsc(la.sv), gc(la.mg)], { x: X(M, 8.1), w: 8.1, drop: 1, colW: [3.25, 0, 1.15, 0.95, 0.95, 0.8, 1.0] });
         }
@@ -6673,9 +6694,52 @@ var TB = {};
       bars(s);
 
       var d = new Date(), fn = 'Tamimi_Business_Review_' + th.id + '_' + A.lang.toUpperCase() + '_' + d.getFullYear() + ('0' + (d.getMonth() + 1)).slice(-2) + ('0' + d.getDate()).slice(-2) + '.pptx';
-      await pptx.writeFile({ fileName: fn });
-      TB.toast(t('downloaded'));
+      await TB.deckOut(pptx, fn);
     } catch (e) { console.error(e); alert(e.message); } finally { A.lang = uiLang; TB.busy(false); }
+  };
+
+  /* ---------- delivery: the deck is built once, then shared (WhatsApp / e-mail / any app) or saved ---------- */
+  var PPTX_MIME = 'application/vnd.openxmlformats-officedocument.presentationml.presentation';
+  TB.deckOut = async function (pptx, fn) {
+    var blob = await pptx.write({ outputType: 'blob' });
+    if (!(blob instanceof Blob)) blob = new Blob([blob], { type: PPTX_MIME });
+    A._deck = { blob: blob, fn: fn, at: Date.now() };
+    setTimeout(function () { TB.deckReady(); }, 30);
+  };
+  function deckFile() { var d = A._deck; return d ? new File([d.blob], d.fn, { type: PPTX_MIME }) : null; }
+  function deckMsg() { var AR = A.lang === 'ar'; return AR ? 'مراجعة أعمال مارس × أسواق التميمي — ' + TB.rangeLabel(TB.F()) + '. العرض مرفق.' : 'Mars × Tamimi Markets business review — ' + TB.rangeLabel(TB.F()) + '. The deck is attached.'; }
+  function saveDeck() { var d = A._deck; if (!d) return; var u = URL.createObjectURL(d.blob), a = document.createElement('a'); a.href = u; a.download = d.fn; document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(u); }, 4000); }
+  TB.canShareDeck = function () { try { var f = deckFile(); return !!(f && navigator.canShare && navigator.canShare({ files: [f] })); } catch (e) { return false; } };
+  TB.shareDeck = async function (via) {
+    var d = A._deck; if (!d) return; var AR = A.lang === 'ar', msg = deckMsg(), f = deckFile();
+    if (TB.canShareDeck()) {
+      try { await navigator.share({ files: [f], title: d.fn.replace(/\.pptx$/, ''), text: msg }); TB.closeSheet(); return; }
+      catch (e) { if (e && e.name === 'AbortError') return; }
+    }
+    /* this device cannot attach files from the browser: save the file, then open the app with the message ready */
+    saveDeck();
+    if (via === 'wa') window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
+    else if (via === 'mail') location.href = 'mailto:?subject=' + encodeURIComponent(d.fn.replace(/\.pptx$/, '').replace(/_/g, ' ')) + '&body=' + encodeURIComponent(msg);
+    TB.toast(AR ? 'تم حفظ الملف — أرفقه في الرسالة' : 'File saved — attach it to the message');
+  };
+  TB.deckReady = function () {
+    var d = A._deck; if (!d) return; var AR = A.lang === 'ar', mob = A.mode === 'mobile', mb = (d.blob.size / 1048576).toFixed(1);
+    var ic = {
+      wa: '<svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3.9 2.5c.1.2 1.6 2.5 4 3.5 1.5.6 2.1.7 2.8.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>',
+      mail: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/></svg>',
+      save: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></svg>',
+      more: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="18" cy="5.5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="18.5" r="2.5"/><path d="m8.2 10.8 7.6-4.1M8.2 13.2l7.6 4.1"/></svg>'
+    };
+    var row = function (k, t1, t2, cls) { return '<button class="dk-opt ' + (cls || '') + '" data-dk="' + k + '"><span class="i">' + ic[k] + '</span><span class="tx"><b>' + t1 + '</b><small>' + t2 + '</small></span></button>'; };
+    var body = '<div class="dk-ready"><div class="dk-file"><span class="dk-ppt">P</span><div><b>' + TB.esc(d.fn) + '</b><small><bdi dir="ltr">' + mb + ' MB · PowerPoint</bdi></small></div><span class="dk-ok">✓</span></div>' +
+      '<div class="dk-opts">' +
+      row('wa', AR ? 'إرسال واتساب' : 'Send on WhatsApp', AR ? 'اختر المحادثة وسيُرفق الملف' : 'Pick a chat — the file is attached', 'wa') +
+      row('mail', AR ? 'إرسال بالإيميل' : 'Send by e-mail', AR ? 'Outlook أو Gmail مع الملف مرفقاً' : 'Outlook or Gmail with the file attached', 'mail') +
+      row('save', mob ? (AR ? 'حفظ على الهاتف' : 'Save to phone') : (AR ? 'تحميل على الجهاز' : 'Download to this computer'), AR ? 'يُحفظ في التنزيلات' : 'Saved to Downloads', mob ? '' : 'pri') +
+      (mob ? row('more', AR ? 'تطبيقات أخرى' : 'Other apps', AR ? 'Teams، Drive، Telegram…' : 'Teams, Drive, Telegram…') : '') +
+      '</div>' + (TB.canShareDeck() || !mob ? '' : '<p class="hint">' + (AR ? 'هذا المتصفح لا يرفق الملفات مباشرة: سيُحفظ الملف ثم يُفتح التطبيق لتُرفقه.' : 'This browser cannot attach files directly: the file is saved, then the app opens for you to attach it.') + '</p>') + '</div>';
+    TB.openSheet(AR ? 'العرض جاهز' : 'Your deck is ready', body);
+    TB.$$('[data-dk]').forEach(function (b) { b.onclick = function () { var k = b.getAttribute('data-dk'); if (k === 'save') { saveDeck(); TB.toast(t('downloaded')); TB.closeSheet(); } else TB.shareDeck(k); }; });
   };
   /* style picker: three looks with a live thumbnail of the cover */
   TB.pickPptTheme = function () {
@@ -6686,7 +6750,7 @@ var TB = {};
     var scenes = [['auto', (AR ? 'تلقائي: ' : 'Auto: ') + short(autoKey)]].concat(['all', 'riyadh', 'madinah', 'buraidah', 'dammam', 'jeddah', 'abha'].map(function (k) { return [k, k === 'all' ? (AR ? 'كل المناطق' : 'All regions') : short(k)]; }));
     var desc = { navy: ['Night scene of the region with the store, navy and gold', 'مشهد ليلي للمنطقة مع الفرع، كحلي وذهبي'], paper: ['Print-magazine style: warm paper, serif headlines, fine rules', 'أسلوب المجلات: ورق دافئ، عناوين كلاسيكية، خطوط رفيعة'], aurora: ['Dark bento cards with an aurora glow and the store floating in it', 'بطاقات داكنة بإضاءة أورورا والفرع في قلبها'] };
     var card = function (k, i) { var th = THEMES[k]; return '<button class="pth' + (cur === k ? ' on' : '') + '" data-pth="' + k + '"><span class="pv sc"><img data-thumb="' + k + '" alt=""></span><span class="nm">' + (i + 1) + '. ' + th.name[AR ? 1 : 0] + '</span><span class="ds">' + desc[k][AR ? 1 : 0] + '</span></button>'; };
-    TB.openSheet(AR ? 'اختر تصميم العرض' : 'Choose a deck design',
+    TB.openSheet(AR ? 'اختر التصميم — ثم أرسله أو احفظه' : 'Pick a design — then send or save it',
       '<div class="plang"><span>' + (AR ? 'لغة العرض' : 'Deck language') + '</span><div class="segm">' + [['en', 'English'], ['ar', 'العربية']].map(function (x) { return '<button class="' + (lg === x[0] ? 'on' : '') + '" data-plang="' + x[0] + '">' + x[1] + '</button>'; }).join('') + '</div></div>' +
       '<div class="plang"><span>' + (AR ? 'الطلبات في العرض' : 'Orders in the deck') + '<small class="psub">' + (AR ? 'أظهرها فقط في اجتماعات إدارة التميمي' : 'Show only in meetings with Tamimi management') + '</small></span><div class="segm">' + [['0', AR ? 'إخفاء' : 'Hide'], ['1', AR ? 'إظهار' : 'Show']].map(function (x) { return '<button class="' + ((ord ? '1' : '0') === x[0] ? 'on' : '') + '" data-pord="' + x[0] + '">' + x[1] + '</button>'; }).join('') + '</div></div>' +
       '<div class="plang"><span>' + (AR ? 'مشهد الغلاف (التصميم 1)' : 'Cover scene (design 1)') + '</span></div><div class="pscn">' + scenes.map(function (x) { return '<button class="' + (scn === x[0] ? 'on' : '') + '" data-pscn="' + x[0] + '">' + x[1] + '</button>'; }).join('') + '</div>' +
@@ -6994,7 +7058,7 @@ var TB = {};
       var rgn = regs[ri], rd = TB.regionPageData(rgn, f, pr), rgG = rd.g != null ? rd.g : rd.ea ? rd.ea.mg : null;
       secNo--;
       s = page(L('Region · ', 'المنطقة · ') + tn(rgn), L(tn(rgn) + ': ' + money(rd.cur) + ' ' + S + ' achieved' + (rgG == null ? '' : ', ' + (rgG >= 0 ? 'growing ' : 'declining ') + (rgG >= 0 ? '+' : '') + (rgG * 100).toFixed(1) + '%'), tn(rgn) + ': ' + money(rd.cur) + ' ' + S + ' متحقق' + (rgG == null ? '' : '، ' + (rgG >= 0 ? 'نمو ' : 'تراجع ') + (rgG * 100).toFixed(1) + '%')), TB.rangeLabel(f) + '  ·  ' + rd.stores + ' ' + t('stores') + '  ·  ' + pct(rd.share) + L(' of Tamimi sales', ' من مبيعات التميمي'));
-      await TB.pptPhotoBlend(pptx, s, { src: await TB.regionPhoto(TB.sceneFor(rgn), D.dark ? 'royal' : 'paper'), x: AR ? 0 : M + 8.1 - 0.2, y: 1.85, w: W - (M + 8.1 - 0.2), h: 5.05, ar: AR, bg: D.dark ? '0F1120' : D.bg, focus: 0.55, grade: null });
+      await TB.pptPhotoBlend(pptx, s, { src: await TB.regionPhoto(TB.sceneFor(rgn), D.dark ? 'royal' : 'paper'), x: AR ? 0 : M + 8.1 - 0.2, y: 1.85, w: W - (M + 8.1 - 0.2), h: 5.05, ar: AR, bg: D.dark ? '0F1120' : D.bg, flat: !D.dark, focus: 0.55, grade: null });
       TB.pptRegion(pptx, s, { theme: GT, x: X(M, 8.1), y: 2.0, w: 8.1, h: 4.8, d: rd, L: L, S: S, prLabel: pr ? TB.rangeLabel(pr) : '' });
     }
 
@@ -7008,7 +7072,7 @@ var TB = {};
       if (lose.length) {
         var l10 = lose.slice(0, 10), la = TB.eposAgg(l10.map(function (x) { return x.r; }));
         s = page(L('Market share · stores', 'الحصة السوقية · الفروع'), L(lose.length + ' stores where Mars is losing share', lose.length + ' فرع تخسر فيها مارس من حصتها'), L('Existing stores, same months vs last year · largest drops', 'فروع قائمة، نفس الأشهر مقابل العام الماضي · أكبر انخفاض'));
-        await TB.pptPhotoBlend(pptx, s, { src: await TB.regionPhoto(TB.sceneFor(f.region), D.dark ? 'royal' : 'paper'), x: AR ? 0 : M + 8.1 - 0.2, y: 1.85, w: W - (M + 8.1 - 0.2), h: 5.05, ar: AR, bg: D.dark ? '0F1120' : D.bg, focus: 0.55, grade: null });
+        await TB.pptPhotoBlend(pptx, s, { src: await TB.regionPhoto(TB.sceneFor(f.region), D.dark ? 'royal' : 'paper'), x: AR ? 0 : M + 8.1 - 0.2, y: 1.85, w: W - (M + 8.1 - 0.2), h: 5.05, ar: AR, bg: D.dark ? '0F1120' : D.bg, flat: !D.dark, focus: 0.55, grade: null });
         table(s, [t('store'), L('Category sales', 'مبيعات الفئة'), L('Cat. growth', 'نمو الفئة'), L('Mars share', 'حصة مارس'), L('Chg pts', 'التغير'), L('Mars growth', 'نمو مارس')], l10.map(function (x) { var r = x.r; return [r.n, money(r.ty), gc(r.ly ? (r.ty - r.ly) / r.ly : null), { text: pct(r.mty / r.ty), options: { color: D.mars, bold: true } }, ptsc(x.sv), gc(r.mly ? (r.mty - r.mly) / r.mly : null)]; }),
           [L('Total, top ', 'الإجمالي، أعلى ') + l10.length, money(la.ty), gc(la.g), pct(la.sh), ptsc(la.sv), gc(la.mg)], { x: X(M, 8.1), w: 8.1, colW: [3.25, 1.15, 0.95, 0.95, 0.8, 1.0], rowH: 0.36 });
       }
@@ -7085,7 +7149,7 @@ var TB = {};
     }
 
     var d = new Date(), fn = 'Tamimi_Business_Review_' + D.id + '_' + A.lang.toUpperCase() + '_' + d.getFullYear() + ('0' + (d.getMonth() + 1)).slice(-2) + ('0' + d.getDate()).slice(-2) + '.pptx';
-    await pptx.writeFile({ fileName: fn });
+    await TB.deckOut(pptx, fn);
   };
 })(TB);
 
@@ -7257,7 +7321,7 @@ var TB = {};
       var m = model(), ch = chapters(m); A.slides = ch; A.slide = Math.min(A.slide || 0, ch.length - 1);
       var cur = ch[A.slide], T = ch.length;
       var h = TB.ph(t('story_title'), L('A ready meeting deck built from the live data. Use the arrows, swipe, or pick a chapter.', 'عرض جاهز للاجتماع من البيانات الحالية. استخدم الأسهم أو السحب أو اختر الفصل.'),
-        '<button class="btn' + (TB.deckOrders() ? ' on' : '') + '" id="pzOrd" title="' + esc(L('Show the orders chapter — for meetings with Tamimi management', 'إظهار فصل الطلبات — لاجتماعات إدارة التميمي')) + '">' + TB.svg('orders') + '<span>' + esc(TB.deckOrders() ? L('Orders: shown', 'الطلبات: ظاهرة') : L('Orders: hidden', 'الطلبات: مخفية')) + '</span></button><button class="btn pri" data-act="repPpt">' + TB.svg('dl') + t('dlPpt') + '</button><button class="btn ico" id="sPrint" title="' + esc(t('print')) + '">' + TB.svg('print') + '</button><button class="btn ico" id="sFull" title="' + esc(L('Full screen', 'ملء الشاشة')) + '">' + TB.svg('expand') + '</button>');
+        '<button class="btn' + (TB.deckOrders() ? ' on' : '') + '" id="pzOrd" title="' + esc(L('Show the orders chapter — for meetings with Tamimi management', 'إظهار فصل الطلبات — لاجتماعات إدارة التميمي')) + '">' + TB.svg('orders') + '<span>' + esc(TB.deckOrders() ? L('Orders: shown', 'الطلبات: ظاهرة') : L('Orders: hidden', 'الطلبات: مخفية')) + '</span></button><button class="btn pri" data-act="repPpt"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5.5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="18.5" r="2.5"/><path d="m8.2 10.8 7.6-4.1M8.2 13.2l7.6 4.1"/></svg><span>' + esc(L('Send / save deck', 'إرسال / حفظ العرض')) + '</span></button><button class="btn ico" id="sPrint" title="' + esc(t('print')) + '">' + TB.svg('print') + '</button><button class="btn ico" id="sFull" title="' + esc(L('Full screen', 'ملء الشاشة')) + '">' + TB.svg('expand') + '</button>');
       h += '<div class="pz" id="pz"><div class="pz-prog"><i style="width:' + ((A.slide + 1) / T * 100).toFixed(1) + '%"></i></div>' +
         '<div class="pz-stage" id="pzStage"><div class="pz-scale" id="pzScale">' + cur.html(A.slide + 1, T) + '</div>' +
         '<button class="pz-tap prev" id="pzTapP" aria-label="previous"></button><button class="pz-tap next" id="pzTapN" aria-label="next"></button></div>' +

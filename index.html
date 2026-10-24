@@ -408,6 +408,7 @@ html.thd{--tx:#EEF2FF;--tx-2:#CDD5F0;--steel:#A9B3D6;--mute:#8A94BC;--line:rgba(
   --mars:#A9B8FF;--mars-50:rgba(169,184,255,.14);--comp:#B9C0D8;--comp-50:rgba(255,255,255,.06);--green:#4ADE9A;--green-50:rgba(74,222,154,.14);--amber:#F2C14E;--amber-50:rgba(242,193,78,.15);--blue:#8FB4FF;--blue-50:rgba(143,180,255,.14);--red-50:rgba(255,107,107,.15);color:var(--tx)}
 html[data-bg="royal"].thd{--mars:#F2C14E;--mars-50:rgba(242,193,78,.14)}
 html.thd #view,html.thd #sheet,html.thd .pop,html.thd #sres{color:var(--tx)}
+html.thm .login-card{--tx:#1C1E28;--tx-2:#3A3F52;--steel:#636A7C;--mute:#8C92A2;--line:#E4E6EC;--line-2:#EFF0F4;--paper:#F3F4F7;--card:#fff;color:var(--tx)}
 html.thd .up,html.thd b.up,html.thd small.up,html.thd span.up{color:#5EE0A0!important}
 html.thd .dn,html.thd b.dn,html.thd small.dn,html.thd span.dn{color:#FF8080!important}
 /* surfaces */
@@ -2763,6 +2764,8 @@ var TB = {};
 /* ===================== UI CORE ===================== */
 (function (TB) {
   'use strict';
+  /* opening defaults: Royal Jewels background, English only (applied once to existing devices too) */
+  try { if (TB.ls.get('tbdm.prefv') !== '2') { TB.ls.set('tbdm.lang', 'en'); TB.ls.set('tbdm.bil', '0'); TB.ls.set('tbdm.bg', 'royal'); TB.ls.set('tbdm.prefv', '2'); } } catch (e) { }
   var A = TB.A = { lang: TB.ls.get('tbdm.lang') || 'en', role: null, f: {}, cycle: null, charts: [], tbl: {}, route: 'overview', arg: null, tab: {}, mode: null };
   var $ = TB.$ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = TB.$$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
@@ -3467,7 +3470,7 @@ var TB = {};
 
 
   /* ---------- English + Arabic: Arabic line under English labels and explanations ---------- */
-  A.bil = (function () { try { return TB.ls.get('tbdm.bil') !== '0'; } catch (e) { return true; } })();
+  A.bil = (function () { try { return TB.ls.get('tbdm.bil') === '1'; } catch (e) { return false; } })();
   TB.biOn = function () { return A.lang === 'en' && A.bil; };
   var _biMap = null, _biRe = null;
   function biBuild() {
@@ -8086,7 +8089,7 @@ var TB = {};
     if (TB.bgKey() === 'paper' && cfg.type === 'doughnut') (cfg.data.datasets || []).forEach(function (d) { d.borderColor = '#FBF8F2'; });
     return cfg;
   };
-  TB.bgKey = function () { var k = ''; try { k = TB.ls.get(KEY) || ''; } catch (e) { } return TB.BGS.some(function (b) { return b.k === k; }) ? k : 'default'; };
+  TB.bgKey = function () { var k = ''; try { k = TB.ls.get(KEY) || ''; } catch (e) { } return TB.BGS.some(function (b) { return b.k === k; }) ? k : 'royal'; };
   var lastSz = '';
   TB.applyBG = function (k) {
     k = k || TB.bgKey(); var de = document.documentElement; de.setAttribute('data-bg', k); de.classList.toggle('thm', k !== 'default'); de.classList.toggle('thd', k === 'navy' || k === 'royal'); TB.applyChartTheme();

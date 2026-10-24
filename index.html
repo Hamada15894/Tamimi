@@ -392,6 +392,13 @@ table.t{width:100%;border-collapse:separate;border-spacing:0;font-size:13px}
 #sheet.on .bg{opacity:1}
 #sheet.on .panel{transform:none;opacity:1}
 #sheet .grab{display:none}
+#toMob{display:none}
+@media (max-width:1000px){
+.mode-desk #toMob{display:inline-flex;position:fixed;z-index:200;bottom:calc(18px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);align-items:center;gap:8px;height:48px;padding:0 20px;border-radius:999px;border:0;background:linear-gradient(135deg,#D71920,#A8121A);color:#fff;font:600 15px var(--txt);box-shadow:0 14px 30px -10px rgba(168,18,26,.7),0 0 0 4px rgba(255,255,255,.9);cursor:pointer;white-space:nowrap;animation:tmIn .35s ease-out}
+.mode-desk #toMob svg{width:20px;height:20px}
+.mode-desk .top-acts [data-act="mode"]{display:inline-flex!important}
+}
+@keyframes tmIn{from{opacity:0;transform:translate(-50%,16px)}to{opacity:1;transform:translate(-50%,0)}}
 /* ===== themed UI: surfaces, text, controls follow the chosen background ===== */
 html[data-bg="navy"]{--sf:rgba(14,20,64,.70);--sfs:#121A4E;--sf2:rgba(255,255,255,.065);--sf3:rgba(255,255,255,.11);--sfb:rgba(255,255,255,.11);--acc:#E0A526;--acc-tx:#1B1400;--acc2:#C8102E;--hl:rgba(224,165,38,.13);--glow:rgba(224,165,38,.35)}
 html[data-bg="royal"]{--sf:rgba(9,36,96,.68);--sfs:#0C2A66;--sf2:rgba(255,255,255,.07);--sf3:rgba(255,255,255,.12);--sfb:rgba(242,210,122,.22);--acc:#E9C46A;--acc-tx:#061A4D;--acc2:#7CC4FF;--hl:rgba(233,196,106,.14);--glow:rgba(233,196,106,.38)}
@@ -1540,6 +1547,7 @@ html.mode-mobile .pz-pg{display:none}
   </div>
   <nav class="tabbar" id="tabbar"></nav>
   <button class="fab" id="fab" aria-label="quick actions"></button>
+  <button id="toMob" type="button" aria-label="Mobile view"></button>
 </div>
 <div id="sheet" hidden><div class="bg"></div><div class="panel"><div class="grab"></div><div class="hd"><b id="shTitle"></b><button class="btn ico ghost" id="shClose" aria-label="close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div><div class="bd" id="shBody"></div><div class="ft" id="shFoot" hidden></div></div></div>
 <div id="searchOv" hidden><div class="shead"><button class="btn ico ghost" id="soBack" aria-label="back"></button><input id="q2" type="search" autocomplete="off" spellcheck="false" enterkeyhint="search"></div><div class="sres" id="sres2"></div></div>
@@ -3164,6 +3172,7 @@ var TB = {};
     $('#abSearch').onclick = function () { TB.tap(); TB.openSearch(); };
     $('#abFilter').onclick = function () { TB.tap(); TB.openFilters(); };
     $('#fab').onclick = function () { TB.tap(); TB.runAction('quick'); };
+    var tm = $('#toMob'); if (tm) { tm.innerHTML = TB.svg('phone') + '<span>' + esc(TB.LP('Back to mobile view', 'الرجوع لعرض الموبايل')) + '</span>'; tm.onclick = function () { TB.tap(); TB.setMode('mobile'); }; }
     $('#langBtn').onclick = function () { TB.toggleLang(); };
     TB.setMode(A.mode, true);
     TB.applyLang();

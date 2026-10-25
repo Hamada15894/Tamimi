@@ -395,6 +395,28 @@ table.t{width:100%;border-collapse:separate;border-spacing:0;font-size:13px}
 #sheet.on .bg{opacity:1}
 #sheet.on .panel{transform:none;opacity:1}
 #sheet .grab{display:none}
+/* ===== sign-in: royal glass ===== */
+#modeSeg{display:none!important}
+#login{background:radial-gradient(70% 55% at 85% 0%,rgba(233,196,106,.30),transparent 60%),radial-gradient(60% 50% at 0% 100%,rgba(30,90,220,.45),transparent 65%),linear-gradient(160deg,rgba(4,16,52,.80),rgba(6,26,77,.70) 45%,rgba(4,12,40,.92)),var(--store,none) center 38%/cover no-repeat,#061A4D!important;position:relative;overflow:hidden}
+#login::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(255,255,255,.035) 0 1px,transparent 1px 90px);pointer-events:none}
+#login::after{content:"";position:absolute;inset:auto 0 0 0;height:40%;background:linear-gradient(0deg,rgba(4,12,40,.85),transparent);pointer-events:none}
+#login .login-card{z-index:1;background:linear-gradient(165deg,rgba(18,44,110,.78),rgba(7,22,66,.86))!important;-webkit-backdrop-filter:blur(18px) saturate(1.3);backdrop-filter:blur(18px) saturate(1.3);border:1px solid rgba(233,196,106,.28);box-shadow:0 40px 90px -30px rgba(0,0,0,.75),inset 0 1px 0 rgba(255,255,255,.10);border-radius:24px;padding:30px 28px 22px;color:#EEF2FF;--tx:#EEF2FF;--steel:#A9B8DD;--mute:#8A9AC4}
+#login .login-card:before{height:3px;background:linear-gradient(90deg,transparent,#E9C46A 25%,#FFE7A3 50%,#E9C46A 75%,transparent)}
+#login .login-card .logo{width:132px;height:92px;margin:0 auto 14px;border-radius:18px;background:#fff;padding:0;overflow:hidden;box-shadow:0 12px 30px -12px rgba(0,0,0,.6),0 0 0 4px rgba(233,196,106,.18)}
+#login .login-card .logo img{width:100%;height:100%;max-width:none;max-height:none;object-fit:cover;transform:scale(1.2) translateY(-9%)}
+#login .login-card h1{color:#fff;font-size:23px;letter-spacing:-.01em}
+#login .login-card p.sub{color:#B9C6E8;margin-bottom:22px}
+#login .login-card label{color:#C9D4F2;font-weight:600;font-size:12.5px;letter-spacing:.02em}
+#login .login-card .inp{background:rgba(255,255,255,.07)!important;border:1px solid rgba(255,255,255,.16)!important;color:#fff!important;height:50px;border-radius:14px;font-size:16px;letter-spacing:.08em}
+#login .login-card .inp:focus{border-color:#E9C46A!important;box-shadow:0 0 0 4px rgba(233,196,106,.20)!important;outline:none}
+#login .login-card #pwEye{color:#C9D4F2}
+#login .login-card .chk{color:#C9D4F2}
+#login .login-card .chk input{accent-color:#E9C46A}
+#login .login-card .btn.pri{height:52px;border:0;border-radius:14px;background:linear-gradient(180deg,#F6D47E,#E0B045)!important;color:#061A4D!important;font-weight:800;font-size:16px;letter-spacing:.02em;box-shadow:0 14px 30px -12px rgba(233,196,106,.75),inset 0 1px 0 rgba(255,255,255,.6)}
+#login .login-card .btn.pri:hover{filter:brightness(1.05)}
+#login .login-card .err{color:#FF9C9C}
+#login .login-foot{color:#8A9AC4;border-top:1px solid rgba(255,255,255,.10);padding-top:12px}
+#login .login-foot .btn{color:#E9C46A!important;border:1px solid rgba(233,196,106,.35)!important;background:transparent!important;border-radius:999px;padding:0 12px}
 /* MARS label always in Mars blue */
 html .mars,html.thm .mars{background:linear-gradient(180deg,#1F3FD1,#0000A0)!important;color:#fff!important;box-shadow:0 0 0 1px rgba(255,255,255,.18)}
 /* phone filter rows: each line fills the full width evenly */

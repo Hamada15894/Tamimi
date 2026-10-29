@@ -2,6 +2,9 @@
 <html lang="en" dir="ltr" class="mode-desk">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <title>Tamimi BDM</title>
 <meta name="theme-color" content="#15171F">
@@ -395,6 +398,9 @@ table.t{width:100%;border-collapse:separate;border-spacing:0;font-size:13px}
 #sheet.on .bg{opacity:1}
 #sheet.on .panel{transform:none;opacity:1}
 #sheet .grab{display:none}
+/* phone tabs: every section visible, wrapped evenly — no hidden overflow */
+html.mode-mobile #view .secbar{display:flex!important;flex-wrap:wrap!important;overflow:visible!important;gap:5px!important}
+html.mode-mobile #view .secbar button{flex:1 1 auto!important;justify-content:center;min-width:0}
 .rk-sum{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:10px}
 .rk{position:relative;display:flex;flex-direction:column;gap:2px;text-align:start;padding:10px 14px;border-radius:14px;background:var(--sf,#fff);border:1px solid var(--sfb,#E4E6EC);color:var(--tx);font:inherit;cursor:pointer;overflow:hidden;min-width:0}
 .rk::before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:#7C8AB8}
@@ -3735,6 +3741,20 @@ var TB = {};
     $('#mOut').onclick = function () { TB.signOut(); };
   };
   /* ---------- refresh: pull the latest published data + newest app version ---------- */
+  /* new app version on GitHub? check on open and whenever the app comes back to the screen, then reload once */
+  TB.BUILD = '6ae38af0';
+  TB.checkVersion = async function () {
+    if (location.protocol === 'file:' || TB.BUILD.indexOf('%%') === 0) return;
+    try {
+      var r = await fetch(location.pathname + '?vc=' + Date.now(), { cache: 'no-store' }); if (!r.ok) return;
+      var txt = await r.text(), m = txt.match(/TB\.BUILD = '([0-9a-z]+)'/); if (!m || m[1] === TB.BUILD) return;
+      if (TB.ss.get('tbdm.vtry') === m[1]) return; TB.ss.set('tbdm.vtry', m[1]);
+      TB.toast && TB.toast(TB.LP('Updating to the latest version…', 'جاري التحديث لآخر إصدار…'));
+      setTimeout(function () { location.replace(location.pathname + '?v=' + m[1] + (location.hash || '')); }, 600);
+    } catch (e) { }
+  };
+  setTimeout(function () { TB.checkVersion(); }, 1500);
+  document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible') TB.checkVersion(); });
   TB.refreshData = async function () {
     var btns = [$('#abRef'), $('#tRef')].filter(Boolean); btns.forEach(function (b) { b.classList.add('spin'); });
     TB.busy(true, t('refreshing'));

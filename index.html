@@ -395,6 +395,23 @@ table.t{width:100%;border-collapse:separate;border-spacing:0;font-size:13px}
 #sheet.on .bg{opacity:1}
 #sheet.on .panel{transform:none;opacity:1}
 #sheet .grab{display:none}
+.rk-sum{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:10px}
+.rk{position:relative;display:flex;flex-direction:column;gap:2px;text-align:start;padding:10px 14px;border-radius:14px;background:var(--sf,#fff);border:1px solid var(--sfb,#E4E6EC);color:var(--tx);font:inherit;cursor:pointer;overflow:hidden;min-width:0}
+.rk::before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:#7C8AB8}
+[dir=rtl] .rk::before{inset:0 0 0 auto}
+.rk-dead::before{background:#B91C1C}.rk-high::before{background:#EF4444}.rk-watch::before{background:#F59E0B}
+.rk span{font-size:12px;font-weight:700;color:var(--steel)}
+.rk b{font-family:var(--num);font-size:22px;line-height:1.1}
+.rk b small{font-size:11px;color:var(--steel);margin-inline-start:4px}
+.rk em{font-style:normal;font-size:11px;color:var(--steel);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rk.on{border-color:var(--acc,#0E1B3D);box-shadow:inset 0 0 0 1px var(--acc,#0E1B3D)}
+.rk-dead b{color:#B91C1C}.rk-high b{color:#DC2626}.rk-watch b{color:#B45309}
+html.thd .rk-dead b{color:#FF8A8A}html.thd .rk-high b{color:#FF9C9C}html.thd .rk-watch b{color:#F6C26B}
+.tsk.risk{cursor:pointer;text-align:start;font:inherit}
+.tsk.risk::before{background:#EF4444}
+.tsk.risk b{color:#DC2626}html.thd .tsk.risk b{color:#FF8A8A}
+.mode-mobile .rk-sum{grid-template-columns:1fr 1fr;gap:8px}
+.mode-mobile .rk b{font-size:18px}
 .tsd{font-weight:800}.tsd.up{color:#16A34A}.tsd.dn{color:#DC2626}
 html.thd .tsd.up{color:#5EE0A0}html.thd .tsd.dn{color:#FF8A8A}
 html[data-bg="royal"] .tsk.hero .tsd.up{color:#0B6B3E}html[data-bg="royal"] .tsk.hero .tsd.dn{color:#9B1C1C}
@@ -5719,6 +5736,52 @@ var TB = {};
   }
   function fmtC(v) { return v >= 1e4 ? TB.kv(v) : n0(Math.round(v)); }
 
+  /* ---------- NQC risk: stock that is not selling fast enough to clear before it expires ----------
+     sell-in pace = average Mars deliveries per period over the lookback (≈ what the store sells), in Tamimi pieces;
+     cover = days of stock at that pace; shelf life = Mars shelf life in days */
+  var PER_DAYS = 28;
+  TB.tsRiskRule = function () { return { lb: A.E.lookback, high: 0.5, watch: 0.3, highNoSl: 180, watchNoSl: 90 }; };
+  function riskRows() {
+    return TB.memo('tsRisk', function () {
+      var E = A.E, PP = TB.piecePrice(), R = TB.tsRule = TB.tsRiskRule(), out = [], active = {}, F = A.D.sales;
+      for (var j = 0; j < F.s.length; j++) if (F.p[j] >= E.lookback.p0 && F.q[j] > 0) active[F.s[j]] = 1;
+      rowsAll().forEach(function (r) {
+        if (r.pcs <= 0) return;
+        var x = E.vel(r.s.i, r.k.i), pp = (PP[r.k.i] || {}).pp || 0, perDay = x && x.v > 0 && pp ? x.v / pp / PER_DAYS : 0;
+        var cover = perDay ? r.pcs / perDay : Infinity, sl = r.k.sl > 0 ? r.k.sl : null, risk, lp = E.presence(r.s.i, r.k.i).lastP, gap = lp ? E.maxP - lp : null;
+        if (!active[r.s.i] || !lp) return; /* store not served direct, or item reaches it another way: sell-in can't judge it */
+        if (gap >= 6) risk = 'dead';
+        else if (!x || x.q <= 0) risk = 'watch';
+        else if (cover > (sl ? sl * R.high : R.highNoSl)) risk = 'high';
+        else if (cover > (sl ? sl * R.watch : R.watchNoSl)) risk = 'watch';
+        else risk = 'ok';
+        out.push({ s: r.s, k: r.k, pcs: r.pcs, ctn: r.ctn, val: r.val, act: r.act, perDay: perDay, cover: cover, sl: sl, risk: risk, lastP: E.presence(r.s.i, r.k.i).lastP });
+      });
+      return out;
+    });
+  }
+  TB.tsRiskRows = riskRows;
+  var RISK = { dead: ['Not moving', 'راكد', 'oos'], high: ['High risk', 'خطر عالٍ', 'oos'], watch: ['Watch', 'مراقبة', 'partial'], ok: ['OK', 'سليم', 'ok'] };
+  function riskHTML() {
+    var S = TB.SAR(), mob = A.mode === 'mobile', f = A.f, st = A.tab.tsSt || 'all', R = TB.tsRiskRule(), lv = A.tab.tsRk || 'all';
+    var all = riskRows().filter(function (r) { return r.risk !== 'ok' && (!f.region || r.s.region === f.region) && (!f.cat || r.k.c === f.cat) && (st === 'all' || (st === 'act') === r.act); });
+    var g = function (k) { var a = all.filter(function (r) { return r.risk === k; }); return { n: a.length, v: sumBy(a, function (r) { return r.val; }) }; };
+    var D0 = g('dead'), H0 = g('high'), W0 = g('watch');
+    var h = '<div class="rk-sum">' + [['all', L('All flagged', 'كل المرصود'), { n: all.length, v: D0.v + H0.v + W0.v }, ''], ['dead', RISK.dead[A.lang === 'ar' ? 1 : 0], D0, L('no delivery for 6+ periods', 'لا توريد منذ 6 فترات أو أكثر')], ['high', RISK.high[A.lang === 'ar' ? 1 : 0], H0, L('cover > 50% of shelf life', 'التغطية > 50% من الصلاحية')], ['watch', RISK.watch[A.lang === 'ar' ? 1 : 0], W0, L('slow: cover > 30% of shelf life or no delivery 3–5 periods', 'بطيء: تغطية > 30% أو لا توريد 3–5 فترات')]].map(function (x) {
+      return '<button class="rk rk-' + x[0] + (lv === x[0] ? ' on' : '') + '" data-tsrk="' + x[0] + '"><span>' + esc(x[1]) + '</span><b>' + money(x[2].v) + '<small>' + S + '</small></b><em>' + n0(x[2].n) + ' ' + L('lines', 'سطر') + (x[3] ? ' · ' + esc(x[3]) : '') + '</em></button>'; }).join('') + '</div>';
+    var rows = lv === 'all' ? all : all.filter(function (r) { return r.risk === lv; });
+    h += '<section class="pn">' + TB.table('tsRk', [
+      { h: t('store'), v: function (r) { return r.s.name; }, f: function (r) { return TB.storeLink(r.s) + '<div class="mut">' + esc(tn(r.s.region)) + '</div>'; } },
+      { h: t('sku'), v: function (r) { return r.k.d; }, f: function (r) { return TB.skuLink(r.k) + '<div class="mut">' + esc(tn(r.k.c)) + (r.act ? '' : ' · <span class="dn">' + L('inactive', 'غير نشط') + '</span>') + '</div>'; }, wrap: 1 },
+      { h: L('On shelf', 'على الرف'), n: 1, v: function (r) { return r.pcs; }, f: function (r) { return n0(r.pcs) + ' ' + L('pcs', 'حبة') + '<div class="mut">' + fmtC(r.ctn) + ' ' + L('ctn', 'كرتون') + '</div>'; } },
+      { h: L('Value', 'القيمة') + ' (' + S + ')', n: 1, v: function (r) { return r.val; }, f: function (r) { return '<b>' + money(r.val) + '</b>'; }, sum: function (rr) { return money(sumBy(rr, function (r) { return r.val; })); } },
+      { h: L('Sells per day', 'البيع اليومي'), n: 1, v: function (r) { return r.perDay; }, f: function (r) { return r.perDay ? r.perDay.toFixed(r.perDay < 1 ? 2 : 1) + ' ' + L('pcs', 'حبة') : '–'; } },
+      { h: L('Days of cover', 'أيام التغطية'), n: 1, v: function (r) { return isFinite(r.cover) ? r.cover : 1e9; }, f: function (r) { return isFinite(r.cover) ? n0(Math.round(r.cover)) + (r.sl ? '<div class="mut">' + L('shelf life ', 'الصلاحية ') + n0(r.sl) + '</div>' : '') : '∞'; } },
+      { h: L('Last delivery', 'آخر توريد'), v: function (r) { return r.lastP || 0; }, f: function (r) { return r.lastP ? t('p') + r.lastP : L('none', 'لا يوجد'); } },
+      { h: L('Risk', 'الخطر'), v: function (r) { return { dead: 3, high: 2, watch: 1 }[r.risk]; }, f: function (r) { return TB.pill(RISK[r.risk][2], RISK[r.risk][A.lang === 'ar' ? 1 : 0]); } }
+    ], rows, { sort: 3, peek: mob ? 25 : null, file: 'Tamimi_NQC_risk', click: function (r) { TB.go('store/' + r.s.i); } }) + '</section>';
+    return h;
+  }
   /* ---------- previous file + 35-day history ---------- */
   function passF(s, k) { var f = A.f, st = A.tab.tsSt || 'all'; if (f.region && s.region !== f.region) return false; if (f.cat && k.c !== f.cat) return false; if (st === 'act' && k.active === false) return false; if (st === 'ina' && k.active !== false) return false; return true; }
   function prevRows() {
@@ -5760,12 +5823,12 @@ var TB = {};
       TB.filterBar({ cycle: false, period: false });
       var D = A.D, S = TB.SAR(), mob = A.mode === 'mobile';
       var h = TB.ph(t('nav_tstock'), L('Shelf stock in every Tamimi store from the latest Tamimi stock file. Cartons = pieces ÷ carton size; value = cartons × Mars carton price. Active / inactive is the Tamimi article status.', 'المخزون على الرف في كل فرع من آخر ملف مخزون للتميمي. الكراتين = الحبات ÷ عدد الحبات في الكرتون، والقيمة = الكراتين × سعر الكرتون. نشط / غير نشط حسب حالة الصنف في التميمي.'),
-        mob ? '' : '<button class="btn pri" id="tsDl">' + TB.svg('dl') + t('dlTable') + '</button>');
+        '');
       /* the source file: template + update, always at hand */
       var at = TB.updAt('storestock'), nStF = D.storeStock ? Object.keys(Object.keys(D.storeStock).reduce(function (o, k) { o[k.split('|')[0]] = 1; return o; }, {})).length : 0;
-      h += '<div class="tsrc' + (D.storeStock ? ' ok' : '') + '"><div class="tsrc-i">' + TB.svg('tstock') + '</div><div class="tsrc-t"><b>' + (D.storeStock ? L('Tamimi stock file', 'ملف مخزون التميمي') : L('No Tamimi stock file yet', 'لا يوجد ملف مخزون للتميمي بعد')) + '</b><span>' + (D.storeStock ? (at ? TB.fmtDate(at, true) : '') + ' · ' + n0(nStF) + ' ' + L('stores', 'فرع') : L('Download the template, fill Store, Article and SOH (pieces), then upload.', 'نزّل النموذج واملأ الفرع والصنف والكمية بالحبة ثم ارفعه.')) + '</span></div>' +
-        '<div class="tsrc-b"><button class="btn" id="tsTpl">' + TB.svg('dl') + '<span>' + L('Template', 'النموذج') + '</span></button><button class="btn pri" id="tsUp">' + TB.svg('upl') + '<span>' + L('Update', 'تحديث') + '</span></button>' + (mob ? '<button class="btn ico" id="tsDl" aria-label="Excel">' + TB.svg('table') + '</button>' : '') + '</div><input type="file" id="tsFile" accept=".xlsx,.xlsm,.xls,.csv" hidden></div>';
-      if (!D.storeStock) return h + '<div class="pn ts-empty"><div class="ts-ei">' + TB.svg('tstock') + '</div><h3>' + L('No Tamimi stock loaded yet', 'لم يتم رفع مخزون التميمي بعد') + '</h3><p class="hint">' + L('Upload the Tamimi stock sheet (Store, Article or ZREP, SOH in pieces) to see cartons and value by region, store and category.', 'ارفع شيت مخزون التميمي (الفرع، Article أو ZREP، الكمية بالحبة) لعرض الكراتين والقيمة حسب المنطقة والفرع والفئة.') + '</p></div>';
+      h += '<div class="tsrc' + (D.storeStock ? ' ok' : '') + '"><div class="tsrc-i">' + TB.svg('tstock') + '</div><div class="tsrc-t"><b>' + (D.storeStock ? L('Tamimi stock file', 'ملف مخزون التميمي') : L('No Tamimi stock file yet', 'لا يوجد ملف مخزون للتميمي بعد')) + '</b><span>' + (D.storeStock ? (at ? TB.fmtDate(at, true) : '') + ' · ' + n0(nStF) + ' ' + L('stores', 'فرع') : L('The stock appears here once the data is published.', 'يظهر المخزون هنا بعد نشر البيانات.')) + '</span></div>' +
+        '<div class="tsrc-b"><button class="btn pri" id="tsTpl">' + TB.svg('dl') + '<span>' + L('Stock workbook', 'ملف المخزون') + '</span></button></div></div>';
+      if (!D.storeStock) return h + '<div class="pn ts-empty"><div class="ts-ei">' + TB.svg('tstock') + '</div><h3>' + L('No Tamimi stock loaded yet', 'لم يتم رفع مخزون التميمي بعد') + '</h3><p class="hint">' + L('Cartons and value by region, store and category appear here once the Tamimi stock is published.', 'تظهر الكراتين والقيمة حسب المنطقة والفرع والفئة بعد نشر مخزون التميمي.') + '</p></div>';
       var all = rowsAll(), R = rowsF(), st = A.tab.tsSt || 'all', U = A.tab.tsU || 'val';
       var fAll = all.filter(function (r) { return (!A.f.region || r.s.region === A.f.region) && (!A.f.cat || r.k.c === A.f.cat); });
       var tv = sumBy(R, function (r) { return r.val; }), tc = sumBy(R, function (r) { return r.ctn || 0; });
@@ -5783,10 +5846,10 @@ var TB = {};
       h += '<section class="tsks">' +
         k(L('Stock value', 'قيمة المخزون'), money(tv), S, dl(tv, PV.val), 'hero') +
         k(L('Cartons', 'الكراتين'), fmtC(tc), '', dl(tc, PV.ctn)) +
-        k(L('Stores', 'الفروع'), n0(Object.keys(nSt).length), '', '') +
+        (function () { var RK = riskRows().filter(function (r) { return (r.risk === 'dead' || r.risk === 'high') && (!A.f.region || r.s.region === A.f.region) && (!A.f.cat || r.k.c === A.f.cat); }), rv = sumBy(RK, function (r) { return r.val; }); return '<button class="tsk risk" data-sec="tstock|risk"><span>' + L('NQC risk · not moving & high', 'خطر NQC · راكد وعالٍ') + '</span><b>' + money(rv) + '<small>' + S + '</small></b><em>' + (tv ? (rv / tv * 100).toFixed(1) : '0') + '% ' + L('of stock', 'من المخزون') + ' · ' + n0(RK.length) + ' ' + L('lines', 'سطر') + '</em></button>'; })() +
         '<div class="tsk ai2"><span>' + L('Active · Inactive', 'نشط · غير نشط') + '</span><div class="ai2-n"><b class="a">' + n0(Object.keys(skuA).length) + '</b><b class="n">' + n0(Object.keys(skuI).length) + '</b></div><div class="ai-bar sm"><i class="a" style="width:' + (pa * 100).toFixed(1) + '%"></i><i class="n" style="width:' + ((1 - pa) * 100).toFixed(1) + '%"></i></div><em>' + L('by value ', 'بالقيمة ') + (pa * 100).toFixed(0) + '% · ' + ((1 - pa) * 100).toFixed(0) + '%</em></div>' +
         '</section>';
-      var sb = TB.secBar('tstock', [['ov', L('Dashboard', 'لوحة المؤشرات'), 'overview'], ['reg', L('By region', 'حسب المنطقة'), 'pin'], ['st', L('By store', 'حسب الفرع'), 'stores', n0(Object.keys(nSt).length)], ['cat', L('By category', 'حسب الفئة'), 'market'], ['sku', L('By item', 'حسب الصنف'), 'skus'], ['chg', L('Change', 'التغيّر'), 'up'], ['ina', L('Inactive items', 'الأصناف غير النشطة'), 'warn', n0(Object.keys(skuI).length)]]), sec = sb.cur;
+      var sb = TB.secBar('tstock', [['ov', L('Dashboard', 'لوحة المؤشرات'), 'overview'], ['reg', L('By region', 'حسب المنطقة'), 'pin'], ['st', L('By store', 'حسب الفرع'), 'stores', n0(Object.keys(nSt).length)], ['cat', L('By category', 'حسب الفئة'), 'market'], ['sku', L('By item', 'حسب الصنف'), 'skus'], ['risk', L('NQC risk', 'خطر NQC'), 'nqc', n0(riskRows().filter(function (r) { return r.risk !== 'ok'; }).length)], ['chg', L('Change', 'التغيّر'), 'up'], ['ina', L('Inactive items', 'الأصناف غير النشطة'), 'warn', n0(Object.keys(skuI).length)]]), sec = sb.cur;
       h += sb.html;
       var vOf = function (o) { return U === 'ctn' ? o.ctn : o.val; }, vFmt = function (v) { return U === 'ctn' ? fmtC(v) : money(v); };
       if (sec === 'ov') {
@@ -5811,12 +5874,14 @@ var TB = {};
         { h: L('Value', 'القيمة') + ' (' + S + ')', n: 1, v: function (o) { return o.val; }, f: function (o) { return '<b>' + money(o.val) + '</b>'; }, sum: function (rows) { return money(sumBy(rows, function (o) { return o.val; })); } }]; };
       if (sec === 'sku') h += '<section class="pn">' + TB.table('tsK', skuCols(), agg(R, function (r) { return r.k.i; }), { sort: 5, peek: mob ? 25 : null, file: 'Tamimi_stock_items' }) + '</section>';
       if (sec === 'chg') h += changeHTML();
+      if (sec === 'risk') h += riskHTML();
       if (sec === 'ina') h += '<div class="note warn">' + TB.svg('warn') + '<span>' + L('Items marked inactive in Tamimi but still on the shelf: ', 'أصناف غير نشطة في التميمي وما زالت على الرف: ') + '<b>' + money(iv) + ' ' + S + '</b> ' + L('in ', 'في ') + n0(Object.keys(skuI).length) + ' ' + L('items — candidates to sell through or re-activate.', 'صنف — تحتاج تصريف أو إعادة تفعيل.') + '</span></div>' +
         '<section class="pn">' + TB.table('tsI', skuCols(), agg(ina.filter(function (r) { return !A.f.brand || r.k.b === A.f.brand; }), function (r) { return r.k.i; }), { sort: 5, peek: mob ? 25 : null, file: 'Tamimi_stock_inactive' }) + '</section>';
       return h;
     },
     after: function () {
-      var up = document.getElementById('tsUp'), up2 = null, fl = document.getElementById('tsFile'), tp = document.getElementById('tsTpl'); if (tp) tp.onclick = function () { TB.stockTemplate(); };
+      var up = null, up2 = null, fl = null, tp = document.getElementById('tsTpl'); if (tp) tp.onclick = function () { TB.exportTStock(); };
+      TB.$$('[data-tsrk]').forEach(function (b) { b.onclick = function () { TB.tap(); A.tab.tsRk = b.getAttribute('data-tsrk'); A._lastRoute = null; TB.render(); }; });
       if (fl) { var go = function () { fl.click(); }; if (up) up.onclick = go; if (up2) up2.onclick = go; fl.onchange = function () { if (!fl.files[0]) return; var nm = fl.files[0].name; TB.ingestFile(fl.files[0], function () { A.memo = {}; A._lastRoute = null; TB.render(); TB.toast(L('Tamimi stock updated: ', 'تم تحديث مخزون التميمي: ') + nm); }); }; }
       var dl = document.getElementById('tsDl'); if (dl) dl.onclick = function () { var id = ['tsR', 'tsS', 'tsC', 'tsK', 'tsI'].filter(function (x) { return document.getElementById('tb-' + x); })[0]; if (id) TB.exportTable(id); else { A.tab.tstock = 'st'; A._lastRoute = null; TB.render(); setTimeout(function () { TB.exportTable('tsS'); }, 300); } };
       TB.$$('[data-tsst]').forEach(function (b) { b.onclick = function () { TB.tap(); A.tab.tsSt = b.getAttribute('data-tsst'); A._lastRoute = null; TB.render(); }; });
@@ -6360,6 +6425,85 @@ var TB = {};
     TB.fileReady(blob, name, 'xlsx');
   }
   TB.xlsxSave = save; TB.newWb = newWb;
+  /* ---------- Tamimi stock workbook: Summary · Store stock (detail) · NQC risk · Read me ---------- */
+  TB.exportTStock = async function () {
+    TB.busy && TB.busy(true, L('Preparing the stock workbook…', 'جاري تجهيز ملف المخزون…')); await (TB.nextFrame ? TB.nextFrame() : 0);
+    try {
+      var D = A.D, E = A.E, wb = newWb(), PP = TB.piecePrice(), ss = D.storeStock || {}, risk = {}, RK = TB.tsRiskRows ? TB.tsRiskRows() : [], AR = A.lang === 'ar';
+      wb.calcProperties.fullCalcOnLoad = true;
+      RK.forEach(function (r) { risk[r.s.i + '|' + r.k.i] = r.risk; });
+      var RL = { dead: L('Not moving', 'راكد'), high: L('High risk', 'خطر عالٍ'), watch: L('Watch', 'مراقبة'), ok: '' };
+      var ACT = L('Active', 'نشط'), INA = L('Inactive', 'غير نشط'), ALL = L('All', 'الكل');
+      /* only lines with stock on the shelf */
+      var rows = [];
+      Object.keys(ss).forEach(function (key) { var p = key.split('|'), s = D.stores[+p[0]], k = D.skus[+p[1]], q = ss[key]; if (!s || !k || !(q > 0)) return;
+        var pp = (PP[k.i] || {}).pp || 0; rows.push([s.no, s.name, tn(s.region), tn(k.c), k.z, k.d || k.td || '', k.active === false ? INA : ACT, Math.round(q), Math.round(q * pp * 100) / 100, RL[risk[key] || 'ok'] || '']); });
+      rows.sort(function (a, b) { return a[2].localeCompare(b[2]) || a[0] - b[0] || a[3].localeCompare(b[3]) || b[8] - a[8]; });
+      var SH = L('Stock', 'المخزون'), N = rows.length, f0 = 2, f1 = N + 1, NAVY = 'FF0B1638', GOLD = 'FFE9C46A';
+      var regs = E.regions.filter(function (r) { return rows.some(function (x) { return x[2] === tn(r); }); }).map(tn), cats = E.cats.filter(function (c) { return rows.some(function (x) { return x[3] === tn(c); }); }).map(tn);
+      /* ---------- Summary (first sheet), driven by two filter cells ---------- */
+      var sm = wb.addWorksheet(L('Summary', 'الملخص'), { properties: { tabColor: { argb: GOLD } }, views: [{ showGridLines: false, rightToLeft: AR }] });
+      var ws = wb.addWorksheet(SH, { properties: { tabColor: { argb: NAVY } }, views: [{ state: 'frozen', ySplit: 1, rightToLeft: AR }] });
+      var lists = wb.addWorksheet('lists', { state: 'veryHidden' });
+      [ALL].concat(regs).forEach(function (v, i) { lists.getCell(i + 1, 1).value = v; });
+      [ALL].concat(cats).forEach(function (v, i) { lists.getCell(i + 1, 2).value = v; });
+      /* detail as a real Excel table: built-in filter + sort on every column */
+      var hdr = [L('Store', 'الفرع'), L('Store name', 'اسم الفرع'), L('Region', 'المنطقة'), L('Category', 'الفئة'), 'ZREP', L('Description', 'الوصف'), L('Status', 'الحالة'), L('SOH (pcs)', 'الكمية (حبة)'), L('Value (SAR)', 'القيمة (ر.س)'), L('NQC risk', 'خطر NQC')];
+      ws.addTable({ name: 'TamimiStock', ref: 'A1', headerRow: true, totalsRow: false, style: { theme: 'TableStyleMedium2', showRowStripes: true }, columns: hdr.map(function (h) { return { name: h, filterButton: true }; }), rows: rows });
+      [8, 32, 11, 18, 10, 42, 10, 11, 13, 12].forEach(function (w, i) { ws.getColumn(i + 1).width = w; });
+      ws.getColumn(8).numFmt = '#,##0'; ws.getColumn(9).numFmt = '#,##0'; ws.getRow(1).height = 22;
+      var rng = function (col) { return "'" + SH + "'!$" + col + '$' + f0 + ':$' + col + '$' + f1; };
+      /* summary layout */
+      [3, 24, 15, 15, 15, 3, 24, 15, 15, 15].forEach(function (w, i) { sm.getColumn(i + 1).width = w; });
+      var put = function (ref, v, o) { var c = sm.getCell(ref); c.value = v; o = o || {}; c.font = fnt(Object.assign({ size: o.size || 10, bold: !!o.bold, color: { argb: o.color || 'FF1C1E28' } })); if (o.fill) c.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: o.fill } }; if (o.fmt) c.numFmt = o.fmt; c.alignment = { vertical: 'middle', horizontal: o.h || (AR ? 'right' : 'left') }; return c; };
+      sm.mergeCells('B1:J1'); put('B1', L('Tamimi stock', 'مخزون التميمي'), { size: 20, bold: true, color: NAVY }); sm.getRow(1).height = 36;
+      var at = TB.updAt ? TB.updAt('storestock') : null;
+      sm.mergeCells('B2:J2'); put('B2', L('Stock file ', 'ملف المخزون ') + (at ? TB.fmtDate(at, true) : '') + '  ·  ' + L('value at Tamimi purchase price', 'القيمة بسعر شراء التميمي'), { color: 'FF6B7180' });
+      for (var x = 2; x <= 10; x++) sm.getCell(2, x).border = { bottom: { style: 'medium', color: { argb: GOLD } } };
+      /* filter cells */
+      put('B4', L('Region', 'المنطقة'), { bold: true, color: 'FF6B7180' }); put('C4', ALL, { bold: true, fill: 'FFFFF6CC', h: 'center' });
+      put('G4', L('Category', 'الفئة'), { bold: true, color: 'FF6B7180' }); put('H4', ALL, { bold: true, fill: 'FFFFF6CC', h: 'center' });
+      sm.getCell('C4').dataValidation = { type: 'list', allowBlank: false, formulae: ['lists!$A$1:$A$' + (regs.length + 1)] };
+      sm.getCell('H4').dataValidation = { type: 'list', allowBlank: false, formulae: ['lists!$B$1:$B$' + (cats.length + 1)] };
+      ['C4', 'H4'].forEach(function (r) { sm.getCell(r).border = { top: { style: 'thin', color: { argb: GOLD } }, bottom: { style: 'thin', color: { argb: GOLD } }, left: { style: 'thin', color: { argb: GOLD } }, right: { style: 'thin', color: { argb: GOLD } } }; });
+      put('D4', L('◂ choose', '◂ اختر'), { size: 9, color: 'FF9AA0AE' }); put('I4', L('◂ choose', '◂ اختر'), { size: 9, color: 'FF9AA0AE' });
+      var RC = 'IF($C$4="' + ALL + '","*",$C$4)', CC = 'IF($H$4="' + ALL + '","*",$H$4)';
+      var base = function (col) { return 'SUMIFS(' + rng(col) + ',' + rng('C') + ',' + RC + ',' + rng('D') + ',' + CC; };
+      /* KPI tiles: value, NQC risk, inactive */
+      var tiles = [['B', 'C', L('Stock value (SAR)', 'قيمة المخزون (ر.س)'), base('I') + ')', NAVY],
+        ['E', 'F', L('NQC risk (SAR)', 'خطر NQC (ر.س)'), base('I') + ',' + rng('J') + ',"' + RL.dead + '")+' + base('I') + ',' + rng('J') + ',"' + RL.high + '")', 'FFB91C1C'],
+        ['H', 'J', L('Inactive items (SAR)', 'أصناف غير نشطة (ر.س)'), base('I') + ',' + rng('G') + ',"' + INA + '")', 'FFB4740A']];
+      tiles.forEach(function (tl) { sm.mergeCells(tl[0] + '6:' + tl[1] + '6'); sm.mergeCells(tl[0] + '7:' + tl[1] + '7');
+        put(tl[0] + '6', tl[2], { size: 9, bold: true, color: 'FFFFFFFF', fill: tl[4], h: 'center' });
+        var c = put(tl[0] + '7', { formula: tl[3] }, { size: 18, bold: true, color: tl[4], fmt: '#,##0', h: 'center' }); c.border = { bottom: { style: 'medium', color: { argb: tl[4] } } }; });
+      sm.getRow(6).height = 22; sm.getRow(7).height = 34;
+      /* two ranked tables */
+      var th = function (r, c0, a) { a.forEach(function (t0, j) { var c = sm.getCell(r, c0 + j); c.value = t0; c.font = fnt({ bold: true, color: { argb: 'FFFFFFFF' } }); c.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: NAVY } }; c.alignment = { horizontal: j ? 'center' : (AR ? 'right' : 'left'), vertical: 'middle' }; }); sm.getRow(r).height = 22; };
+      var R0 = 10;
+      put('B9', L('By region', 'حسب المنطقة'), { size: 12, bold: true, color: NAVY }); put('G9', L('By category', 'حسب الفئة'), { size: 12, bold: true, color: NAVY });
+      th(R0, 2, [L('Region', 'المنطقة'), L('Value (SAR)', 'القيمة (ر.س)'), L('NQC risk', 'خطر NQC'), L('Share', 'الحصة')]);
+      th(R0, 7, [L('Category', 'الفئة'), L('Value (SAR)', 'القيمة (ر.س)'), L('NQC risk', 'خطر NQC'), L('Share', 'الحصة')]);
+      var line = function (r, col0, name, keyCol, other) {
+        var nm = TB.colL(col0 - 1), crit = function (extra) { return 'SUMIFS(' + rng('I') + ',' + rng(keyCol) + ',$' + nm + r + ',' + rng(other) + ',' + (other === 'D' ? CC : RC) + (extra || '') + ')'; };
+        put(nm + r, name, { bold: true });
+        var v = sm.getCell(r, col0 + 1); v.value = { formula: crit() }; v.numFmt = '#,##0';
+        var k = sm.getCell(r, col0 + 2); k.value = { formula: crit(',' + rng('J') + ',"' + RL.dead + '"') + '+' + crit(',' + rng('J') + ',"' + RL.high + '"') }; k.numFmt = '#,##0'; k.font = fnt({ color: { argb: 'FFB91C1C' } });
+        var sh = sm.getCell(r, col0 + 3); sh.value = { formula: 'IFERROR(' + TB.colL(col0) + r + '/$B$7,0)' }; sh.numFmt = '0.0%';
+        for (var j = 0; j < 4; j++) sm.getCell(r, col0 + j).border = { bottom: { style: 'hair', color: { argb: LINE } } };
+      };
+      regs.forEach(function (rg, j) { line(R0 + 1 + j, 2, rg, 'C', 'D'); });
+      cats.forEach(function (cg, j) { line(R0 + 1 + j, 7, cg, 'D', 'C'); });
+      sm.addConditionalFormatting({ ref: 'C' + (R0 + 1) + ':C' + (R0 + regs.length), rules: [{ type: 'dataBar', minLength: 0, maxLength: 100, cfvo: [{ type: 'num', value: 0 }, { type: 'max' }], color: { argb: 'FF2C5AA8' }, priority: 1 }] });
+      sm.addConditionalFormatting({ ref: 'H' + (R0 + 1) + ':H' + (R0 + cats.length), rules: [{ type: 'dataBar', minLength: 0, maxLength: 100, cfvo: [{ type: 'num', value: 0 }, { type: 'max' }], color: { argb: 'FF2C5AA8' }, priority: 1 }] });
+      var nt = R0 + 2 + Math.max(regs.length, cats.length);
+      sm.mergeCells('B' + nt + ':J' + nt); put('B' + nt, L('NQC risk = Not moving (no Mars delivery to the store for 6+ periods) + High risk (days of cover above 50% of shelf life). Use the yellow cells to filter; use the filter arrows on the Stock sheet for any detail.', 'خطر NQC = راكد (لا توريد من مارس للفرع منذ 6 فترات أو أكثر) + خطر عالٍ (أيام التغطية أكثر من 50% من الصلاحية). استخدم الخلايا الصفراء للفلترة، وأسهم الفلترة في شيت المخزون لأي تفاصيل.'), { size: 9, color: 'FF6B7180' });
+      sm.getCell('B' + nt).alignment = { wrapText: true, vertical: 'top' }; sm.getRow(nt).height = 30;
+      pageSetup(sm, true); pageSetup(ws, true);
+      await save(wb, stampName('Tamimi_Stock'));
+    } catch (e) { console.error(e); TB.toast && TB.toast(e.message); }
+    finally { TB.busy && TB.busy(false); }
+  };
+
   function stampName(base) { var d = new Date(); return base + '_' + d.getFullYear() + ('0' + (d.getMonth() + 1)).slice(-2) + ('0' + d.getDate()).slice(-2) + '.xlsx'; }
   function scopeF() { return { region: A.f.region || null, cat: A.f.cat || null, brand: A.f.brand || null }; }
   function scopeText() { var f = TB.F(); return [f.region ? tn(f.region) : L('All regions', 'كل المناطق'), f.cat ? tn(f.cat) : L('All categories', 'كل الفئات'), f.brand || '', TB.rangeLabel(f), L('Order cycle: ', 'دورة الطلب: ') + (A.cycle || []).join(', ')].filter(Boolean).join(' | '); }

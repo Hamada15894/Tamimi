@@ -395,6 +395,160 @@ table.t{width:100%;border-collapse:separate;border-spacing:0;font-size:13px}
 #sheet.on .bg{opacity:1}
 #sheet.on .panel{transform:none;opacity:1}
 #sheet .grab{display:none}
+.tsd{font-weight:800}.tsd.up{color:#16A34A}.tsd.dn{color:#DC2626}
+html.thd .tsd.up{color:#5EE0A0}html.thd .tsd.dn{color:#FF8A8A}
+html[data-bg="royal"] .tsk.hero .tsd.up{color:#0B6B3E}html[data-bg="royal"] .tsk.hero .tsd.dn{color:#9B1C1C}
+.tsch{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.tsch-l{display:flex;flex-direction:column;padding:6px 14px;border-radius:12px;background:var(--sf,#fff);border:1px solid var(--sfb,#E4E6EC)}
+.tsch-l span{font-size:11px;color:var(--steel)}.tsch-l b{font-family:var(--num);font-size:17px;color:var(--tx)}
+.tsch-l b.up{color:#16A34A}.tsch-l b.dn{color:#DC2626}
+html.thd .tsch-l b.up{color:#5EE0A0}html.thd .tsch-l b.dn{color:#FF8A8A}
+.tsch .ts-seg{margin-inline-start:auto}
+/* donut + legend never spill out of its card */
+.ts-g .pn{overflow:hidden}
+.ts-g .dnw{min-height:0;overflow:hidden;align-items:stretch}
+.ts-g .dleg{overflow:auto;scrollbar-width:thin;justify-content:flex-start;gap:0!important}
+.ts-g .dl-r{padding:0 6px!important;font-size:12.5px;flex:1 1 0;min-height:18px;max-height:34px}
+.ts-g .dleg{overflow:hidden!important}
+.ts-g .dl-v{font-size:14px}
+.mode-desk .ts-g .dnw .chart{align-self:center;height:min(100%,240px)!important;aspect-ratio:1}
+/* speed: skip painting what is off screen */
+#view .dpan:not(.on),#view .subp[hidden]{content-visibility:hidden}
+#view .pn,#view .tsk,#view .tag{contain:layout paint}
+.chart{contain:strict}
+#view .tsk::after{display:none!important;content:none!important}
+#view .tsk{box-shadow:none!important}
+html #view .tsk.hero{background:linear-gradient(140deg,#16275A,#0B1638)!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+html[data-bg="royal"] #view .tsk.hero{background:linear-gradient(135deg,#F8DE96,#EBC25C)!important;filter:none!important;opacity:1!important;border-color:transparent!important}
+.mode-mobile #view .tsk.hero{display:flex;flex-direction:row;align-items:baseline;justify-content:space-between}
+.tsks{align-items:stretch}
+.mode-desk .tsk{padding:10px 14px}
+.mode-mobile .tsk.hero{padding:12px 14px}
+.mode-mobile .tsk.hero b{font-size:24px!important}
+.mode-mobile .tsks{gap:8px!important;margin-bottom:8px}
+.mode-mobile .ts-ctl{gap:8px;margin-bottom:8px}
+.mode-mobile .ts-seg button{height:32px}
+/* Tamimi stock: source file card + calmer KPIs */
+.tsrc{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:16px;background:var(--sf,#fff);border:1px solid var(--sfb,#E4E6EC);margin-bottom:10px}
+.tsrc-i{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;flex:none;background:rgba(245,158,11,.14);color:#B45309}
+.tsrc.ok .tsrc-i{background:rgba(34,197,94,.14);color:#15803D}
+html.thd .tsrc.ok .tsrc-i{color:#5EE0A0}
+.tsrc-i svg{width:22px;height:22px}
+.tsrc-t{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.3}
+.tsrc-t b{font-size:14px;color:var(--tx)}
+.tsrc-t span{font-size:12px;color:var(--steel);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tsrc-b{display:flex;gap:6px;flex:none}
+.tsrc-b .btn{height:38px;border-radius:11px;gap:6px}
+.tsks{grid-template-columns:1.4fr 1fr 1fr 1.3fr!important}
+.tsk em:empty{display:none}
+.tsk.ai2 .ai2-n{display:flex;gap:14px;align-items:baseline}
+.tsk.ai2 .ai2-n b{font-family:var(--num);font-size:24px;line-height:1.1}
+.tsk.ai2 .ai2-n b.a{color:#16A34A}.tsk.ai2 .ai2-n b.n{color:#DC2626}
+html.thd .tsk.ai2 .ai2-n b.a{color:#5EE0A0}html.thd .tsk.ai2 .ai2-n b.n{color:#FF8A8A}
+.ai-bar.sm{height:6px;margin:4px 0 2px}
+.tsk.ai2::before{background:linear-gradient(#22C55E,#EF4444)}
+.mode-mobile .tsrc{padding:9px 10px;gap:10px}
+.mode-mobile .tsrc-i{width:36px;height:36px}
+.mode-mobile .tsrc-b .btn span{display:none}
+.mode-mobile .tsrc-b .btn{width:40px;padding:0;justify-content:center}
+.mode-mobile .tsks{grid-template-columns:1fr 1fr!important}
+.mode-mobile .tsk.ai2{grid-column:1/-1}
+.ts-seg button{white-space:nowrap}
+html[data-bg="royal"] .tsk.hero b small{color:#3A4A7A!important}
+.upd b.sh{display:none}
+@media (max-width:1500px){.updbar.inl .upd b.lg{display:none}.updbar.inl .upd b.sh{display:inline}.updbar.inl .upd{padding:0 8px;gap:5px}}
+@media (max-width:420px){.updbar .upd b.lg{display:none}.updbar .upd b.sh{display:inline}}
+.updbar.inl{margin:0!important;flex-wrap:nowrap}
+.updbar.inl .updl{display:none}
+.updbar.inl .upd{height:26px}
+.updbar.onhero{position:absolute;top:12px;inset-inline-end:16px;margin:0!important;z-index:2}
+.updbar.onhero .updl{display:none}
+.updbar.onhero .updl{color:#A9B0C8}
+.updbar.onhero .upd{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14);height:22px}
+.updbar.onhero .upd em{color:#A9B0C8}.updbar.onhero .upd b{color:#fff}
+html[data-bg="royal"] .updbar.onhero .updl,html[data-bg="royal"] .updbar.onhero .upd em{color:#C9D6EE}
+/* ===== data-updated stamps ===== */
+.updbar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:-4px 0 10px;font-size:11.5px}
+.updl{display:inline-flex;align-items:center;gap:5px;color:var(--steel);font-weight:700;letter-spacing:.02em;text-transform:uppercase;font-size:10.5px;margin-inline-end:2px}
+.updl svg{width:13px;height:13px}
+.upd{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:999px;background:var(--sf2,#fff);border:1px solid var(--sfb,#E4E6EC);white-space:nowrap}
+.upd i{width:7px;height:7px;border-radius:50%;background:#9AA0AE}
+.upd.fresh i{background:#22C55E;box-shadow:0 0 0 3px rgba(34,197,94,.18)}
+.upd.warm i{background:#F59E0B;box-shadow:0 0 0 3px rgba(245,158,11,.18)}
+.upd.old i{background:#EF4444;box-shadow:0 0 0 3px rgba(239,68,68,.16)}
+.upd em{font-style:normal;color:var(--steel);font-weight:600}
+.upd b{font-weight:700;color:var(--tx);font-variant-numeric:tabular-nums}
+.dash > .updbar{margin:0}
+.mode-desk #view > .updbar{margin:-6px 0 8px}
+.mode-mobile .updbar{margin:-2px 0 10px;gap:5px}
+.mode-mobile .upd{height:22px;padding:0 8px;font-size:11px}
+/* ===== Tamimi stock dashboard ===== */
+.ts-ctl{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+.ts-seg{display:inline-flex;gap:4px;padding:4px;border-radius:14px;background:var(--sf,#fff);border:1px solid var(--sfb,#E4E6EC)}
+.ts-seg button{display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 13px;border:0;border-radius:10px;background:transparent;color:var(--tx);font:inherit;font-weight:600;font-size:13px;cursor:pointer}
+.ts-seg button b{font-family:var(--num);font-size:13px;padding:1px 8px;border-radius:999px;background:var(--sf3,#EEF0F5)}
+.ts-seg button i{width:8px;height:8px;border-radius:50%;background:#7C8AB8}
+.ts-seg button.s-act i{background:#22C55E}.ts-seg button.s-ina i{background:#EF4444}
+.ts-seg button.on{background:#0E1B3D;color:#fff}
+.ts-seg button.on b{background:rgba(255,255,255,.18);color:#fff}
+html.thm .ts-seg button.on{background:var(--acc);color:var(--acc-tx)}
+html.thm .ts-seg button.on b{background:rgba(0,0,0,.14);color:var(--acc-tx)}
+.ts-seg.u{margin-inline-start:auto}
+.tsks{display:grid;grid-template-columns:1.35fr repeat(5,minmax(0,1fr));gap:10px;margin-bottom:10px}
+.tsk{position:relative;display:flex;flex-direction:column;gap:2px;padding:11px 14px;border-radius:16px;background:var(--sf,#fff);border:1px solid var(--sfb,#E4E6EC);min-width:0;overflow:hidden}
+.tsk::before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:#7C8AB8}
+[dir=rtl] .tsk::before{inset:0 0 0 auto}
+.tsk span{font-size:11.5px;color:var(--steel);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tsk b{font-family:var(--num);font-size:24px;line-height:1.1;font-variant-numeric:tabular-nums;color:var(--tx)}
+.tsk b small{font-size:11px;color:var(--steel);margin-inline-start:4px;font-weight:600}
+.tsk em{font-style:normal;font-size:11px;color:var(--steel);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tsk.hero{background:linear-gradient(140deg,#16275A,#0B1638);border-color:transparent;color:#fff}
+.tsk.hero::before{background:#E9C46A}
+.tsk.hero span,.tsk.hero em,.tsk.hero b small{color:#B9C6E8}.tsk.hero b{color:#fff;font-size:28px}
+html[data-bg="royal"] .tsk.hero{background:linear-gradient(140deg,#F2D27A,#D9AE45);color:#061A4D}
+html[data-bg="royal"] .tsk.hero span,html[data-bg="royal"] .tsk.hero em,html[data-bg="royal"] .tsk.hero b small{color:#3A4A7A}
+html[data-bg="royal"] .tsk.hero b{color:#061A4D}
+html[data-bg="royal"] .tsk.hero::before{background:#061A4D}
+.tsk.act::before{background:#22C55E}.tsk.ina::before{background:#EF4444}.tsk.warn::before{background:#F59E0B}
+.ts-g{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1.45fr) minmax(0,.95fr)!important;gap:12px}
+.mode-desk .ts-g .dnw{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)!important;gap:10px}
+.ts-g .dl-r{grid-template-columns:10px minmax(0,1fr) auto 44px!important;gap:8px;padding:5px 6px}
+.ts-g .dl-b{display:none}
+.ts-g .dl-n{font-size:12.5px}
+.tsk.hero b small{opacity:.9}
+.mode-desk .tstk-pad{}
+.ts-g .pn{display:flex;flex-direction:column;min-height:0;margin:0!important}
+.ts-g .pn .chart{flex:1;min-height:200px}
+.ts-g .dnw{flex:1;min-height:0}
+.ai-bar{display:flex;height:14px;border-radius:999px;overflow:hidden;background:var(--sf3,#EEF0F5);margin:6px 0 10px}
+.ai-bar i{display:block;height:100%}
+.ai-bar .a{background:linear-gradient(90deg,#16A34A,#22C55E)}.ai-bar .n{background:linear-gradient(90deg,#EF4444,#B91C1C)}
+.ai-l{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.ai-l>div{padding:8px 10px;border-radius:12px;background:var(--sf2,#F5F7FB);border:1px solid var(--sfb,#E4E6EC);display:flex;flex-direction:column;gap:1px;min-width:0}
+.ai-l span{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;color:var(--steel);font-weight:600}
+.ai-l span i{width:8px;height:8px;border-radius:50%}
+.ai-l .a span i{background:#22C55E}.ai-l .n span i{background:#EF4444}
+.ai-l b{font-family:var(--num);font-size:20px;color:var(--tx)}
+.ai-l em{font-style:normal;font-size:11px;color:var(--steel)}
+.ai-t{display:flex;flex-direction:column;gap:2px;min-height:0;overflow:hidden}
+.ai-t small{font-size:11px;color:var(--steel);font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px}
+.ai-t a{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;align-items:center;padding:6px 2px;border-bottom:1px solid var(--line-2);cursor:pointer;color:var(--tx);text-decoration:none;font-size:12.5px}
+.ai-t a bdi{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ai-t a span{font-size:11px;color:var(--steel)}
+.ai-t a b{font-family:var(--num);color:#EF4444}
+html.thd .ai-t a b{color:#FF8A8A}
+.ai-t .lnk{margin-top:6px;align-self:flex-start}
+.ts-empty{text-align:center;padding:40px 20px}
+.ts-ei{width:60px;height:60px;margin:0 auto 12px;border-radius:18px;display:grid;place-items:center;background:var(--sf2,#F3F4F7)}
+.ts-ei svg{width:28px;height:28px}
+.mode-mobile .tsks{grid-template-columns:1fr 1fr;gap:8px}
+.mode-mobile .tsk.hero{grid-column:1/-1}
+.mode-mobile .tsk b{font-size:20px}.mode-mobile .tsk.hero b{font-size:26px}
+.mode-mobile .ts-g{grid-template-columns:1fr!important}
+.mode-mobile .ts-seg{width:100%}.mode-mobile .ts-seg button{flex:1;justify-content:center;padding:0 6px;font-size:12px}
+.mode-mobile .ts-seg.u{margin:0}
+.mode-mobile #tabbar button span{font-size:10px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+@media (max-width:1400px){.mode-desk .tsks{grid-template-columns:1.2fr repeat(5,minmax(0,1fr))}.mode-desk .tsk b{font-size:20px}.mode-desk .tsk.hero b{font-size:24px}}
 /* ===== sign-in: royal glass ===== */
 #modeSeg{display:none!important}
 #login{background:radial-gradient(70% 55% at 85% 0%,rgba(233,196,106,.30),transparent 60%),radial-gradient(60% 50% at 0% 100%,rgba(30,90,220,.45),transparent 65%),linear-gradient(160deg,rgba(4,16,52,.80),rgba(6,26,77,.70) 45%,rgba(4,12,40,.92)),var(--store,none) center 38%/cover no-repeat,#061A4D!important;position:relative;overflow:hidden}
@@ -623,8 +777,8 @@ html.thd .epc-f .up{color:#5EE0A0}html.thd .epc-f .dn{color:#FF8A8A}
 }
 @keyframes tmIn{from{opacity:0;transform:translate(-50%,16px)}to{opacity:1;transform:translate(-50%,0)}}
 /* ===== themed UI: surfaces, text, controls follow the chosen background ===== */
-html[data-bg="navy"]{--sf:rgba(14,20,64,.70);--sfs:#121A4E;--sf2:rgba(255,255,255,.065);--sf3:rgba(255,255,255,.11);--sfb:rgba(255,255,255,.11);--acc:#E0A526;--acc-tx:#1B1400;--acc2:#C8102E;--hl:rgba(224,165,38,.13);--glow:rgba(224,165,38,.35)}
-html[data-bg="royal"]{--sf:rgba(9,36,96,.68);--sfs:#0C2A66;--sf2:rgba(255,255,255,.07);--sf3:rgba(255,255,255,.12);--sfb:rgba(242,210,122,.22);--acc:#E9C46A;--acc-tx:#061A4D;--acc2:#7CC4FF;--hl:rgba(233,196,106,.14);--glow:rgba(233,196,106,.38)}
+html[data-bg="navy"]{--sf:rgba(13,19,62,.90);--sfs:#121A4E;--sf2:rgba(255,255,255,.065);--sf3:rgba(255,255,255,.11);--sfb:rgba(255,255,255,.11);--acc:#E0A526;--acc-tx:#1B1400;--acc2:#C8102E;--hl:rgba(224,165,38,.13);--glow:rgba(224,165,38,.35)}
+html[data-bg="royal"]{--sf:rgba(9,33,90,.88);--sfs:#0C2A66;--sf2:rgba(255,255,255,.07);--sf3:rgba(255,255,255,.12);--sfb:rgba(242,210,122,.22);--acc:#E9C46A;--acc-tx:#061A4D;--acc2:#7CC4FF;--hl:rgba(233,196,106,.14);--glow:rgba(233,196,106,.38)}
 html[data-bg="paper"]{--sf:#FBF8F2;--sfs:#FBF8F2;--sf2:#F3ECE0;--sf3:#EAE0CF;--sfb:#E3D8C6;--acc:#1F4D3A;--acc-tx:#FFFFFF;--acc2:#C8553D;--hl:rgba(200,85,61,.09);--glow:rgba(31,77,58,.28);
   --tx:#17161A;--tx-2:#3D3A33;--steel:#7C7466;--mute:#9A9182;--line:#E3D8C6;--line-2:#EEE6D8;--paper:#F1EADF;--card:#FBF8F2;--mars:#1F3A93;--mars-50:#E6E9F5;--blue:#1F3A93;--blue-50:#E6E9F5}
 html.thd{--tx:#EEF2FF;--tx-2:#CDD5F0;--steel:#A9B3D6;--mute:#8A94BC;--line:rgba(255,255,255,.12);--line-2:rgba(255,255,255,.07);--paper:rgba(255,255,255,.06);--card:var(--sfs);
@@ -636,7 +790,7 @@ html.thd .up,html.thd b.up,html.thd small.up,html.thd span.up{color:#5EE0A0!impo
 html.thd .dn,html.thd b.dn,html.thd small.dn,html.thd span.dn{color:#FF8080!important}
 /* surfaces */
 html.thm #view :is(.pn,.tag,.mslide,.secbar,.dt,.rep .card,.st-top .rq,.hero360,.crd,.sr,.rshead,.sl,.favs .fav,.mkh .epset button,.dsh-r){background:var(--sf)!important;border-color:var(--sfb)!important;color:var(--tx)}
-html.thd #view :is(.pn,.tag,.mslide,.secbar,.dt,.rep .card,.st-top .rq,.hero360,.rshead){-webkit-backdrop-filter:blur(14px) saturate(1.15);backdrop-filter:blur(14px) saturate(1.15)}
+
 html.thd #view :is(.pn,.tag,.mslide,.dt,.rep .card,.st-top .rq){box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 18px 40px -26px rgba(0,0,0,.7)!important}
 html.thm #view .dsh-r{background:transparent!important}
 html.thm #view .sc-head b,html.thm #view .sc-head b *{color:#fff!important}
@@ -740,7 +894,8 @@ html[data-bg="paper"].mode-mobile #tabbar button.on{color:var(--acc2)!important}
 html[data-bg="navy"]{--bgc:#0A1036;--onbg:#F4F6FF;--onbg2:rgba(214,224,250,.72)}
 html[data-bg="royal"]{--bgc:#061A4D;--onbg:#FFFFFF;--onbg2:rgba(214,226,245,.75)}
 html[data-bg="paper"]{--bgc:#F5F0E8;--onbg:#17161A;--onbg2:#7C7466}
-html[data-bg]:not([data-bg="default"]) body{background:var(--bgc) var(--appbg) center/cover fixed no-repeat!important}
+html[data-bg]:not([data-bg="default"]) body{background:var(--bgc)!important}
+html[data-bg]:not([data-bg="default"]) body::before{content:"";position:fixed;inset:0;z-index:-1;background:var(--bgc) var(--appbg) center/cover no-repeat;transform:translateZ(0);pointer-events:none}
 html[data-bg]:not([data-bg="default"]) #view,html[data-bg]:not([data-bg="default"]) .main,html[data-bg]:not([data-bg="default"]).mode-mobile #view,html[data-bg]:not([data-bg="default"]).mode-desk #view{background:transparent!important}
 html[data-bg]:not([data-bg="default"]) #view > .ph h1,html[data-bg]:not([data-bg="default"]) #view > .ph h1 .bi{color:var(--onbg)!important}
 html[data-bg]:not([data-bg="default"]) #view > .ph h1 .bi{color:var(--onbg2)!important}
@@ -2211,6 +2366,24 @@ var TB = {};
     if (M.epos && M.epos.length && opts.wb && TB.captureSheet) raw.eposSheet = { file: opts.fileName || '', at: new Date().toISOString(), sheets: M.epos.map(function (m) { return TB.captureSheet(opts.wb.Sheets[m.name], m.name, m.h); }) };
     else if (prev && prev.raw && prev.raw.eposSheet) raw.eposSheet = prev.raw.eposSheet;
 
+    /* Tamimi stock history: keep the previous file line by line, and a daily summary for 35 days */
+    (function () {
+      var pr = prev && prev.raw ? prev.raw : {}, pAt = (pr.upd && pr.upd.storestock) || (prev && prev.meta && prev.meta.builtAt) || null;
+      var summ = function (rows, at) { var st = {}, sk = {}; (rows || []).forEach(function (r) { var q = Math.max(0, +r.q || 0); if (!q) return; var a = (r.L || 'S') + r.sn, b = r.z || ('a' + r.a); st[a] = (st[a] || 0) + q; sk[b] = (sk[b] || 0) + q; }); return { at: at, st: st, sk: sk }; };
+      var hist = (pr.ssHist || []).slice();
+      if (M.storestock && raw.storeStock) {
+        if (pr.storeStock) { raw.ssPrev = pr.storeStock; raw.ssPrevAt = [pAt]; if (!hist.length) hist.push(summ(pr.storeStock, pAt)); }
+        hist.push(summ(raw.storeStock, new Date().toISOString()));
+      } else { if (pr.ssPrev) { raw.ssPrev = pr.ssPrev; raw.ssPrevAt = pr.ssPrevAt; } }
+      /* one point per day (latest wins), last 35 days */
+      var byDay = {}; hist.forEach(function (h) { if (h && h.at) byDay[String(h.at).slice(0, 10)] = h; });
+      var days = Object.keys(byDay).sort(), last = days[days.length - 1];
+      if (last) { var lim = new Date(new Date(last).getTime() - 35 * 864e5).toISOString().slice(0, 10); raw.ssHist = days.filter(function (d) { return d >= lim; }).map(function (d) { return byDay[d]; }); }
+    })();
+    /* when each data source was last updated */
+    var nowIso = new Date().toISOString(), pu = (prev && prev.raw && prev.raw.upd) || {}, pb = (prev && prev.meta && prev.meta.builtAt) || null;
+    raw.upd = {};
+    ['stores', 'article', 'sales', 'nqc', 'orders', 'stock', 'storestock', 'epos'].forEach(function (t) { var hit = t === 'epos' ? (M.epos && M.epos.length) : M[t]; var rk = { article: 'skus', storestock: 'storeStock' }[t] || t; if (hit) raw.upd[t] = nowIso; else if (pu[t]) raw.upd[t] = pu[t]; else if (prev && prev.raw && (prev.raw[rk] || prev.raw[t])) raw.upd[t] = pb; });
     var D = TB.compile(raw, Q);
     D.meta.builtAt = new Date().toISOString();
     D.meta.fileName = opts.fileName || '';
@@ -2219,8 +2392,9 @@ var TB = {};
 
   /* =================== COMPILE raw -> analytic model =================== */
   TB.compile = function (raw, Q) {
+    var _upd = raw.upd || {};
     Q = Q || { notes: [], counts: {} };
-    var D = { v: 1, raw: raw, meta: {}, quality: Q };
+    var D = { v: 1, raw: raw, meta: { upd: _upd }, quality: Q };
     var plantOf = {}; (raw.wh || []).forEach(function (w) { plantOf[w.region] = w.plant; if (w.wh && !plantOf[w.wh]) plantOf[w.wh] = w.plant; });
     D.plantOf = plantOf;
     /* ---- stores ---- */
@@ -2357,6 +2531,8 @@ var TB = {};
         var z = r.z || artToZ[r.a]; var k = kByZ[z]; if (k == null) return; ss[si + '|' + k] = (ss[si + '|' + k] || 0) + r.q; });
       D.storeStock = ss;
     }
+    if (raw.ssPrev) { var sp = {}; raw.ssPrev.forEach(function (r) { var si = sByNo[r.sn]; if (si == null || !stores[si].master) return; if (r.L === 'S' || r.L === 'E') { if ((r.L === 'E') !== (stores[si].type === 'EXP')) return; } else if (r.L) return; var z = r.z || artToZ[r.a], k = kByZ[z]; if (k == null) return; sp[si + '|' + k] = (sp[si + '|' + k] || 0) + r.q; }); D.storeStockPrev = sp; D.meta.ssPrevAt = raw.ssPrevAt ? raw.ssPrevAt[0] : null; }
+    D.ssHist = raw.ssHist || [];
     D.capsSheet = raw.capsSheet || null;
     /* EPOS sell-out rows linked to Mars stores by Tamimi store code */
     var CH = { S: 'super', E: 'express', V: 'online', J: 'noon' };
@@ -2876,7 +3052,7 @@ var TB = {};
     en: {
       appName: 'Tamimi BDM', appSub: 'Mars × Tamimi Markets business review',
       login: 'Sign in', password: 'Password', enter: 'Open', wrongPw: 'That password does not open this workspace. Check it and try again.', remember: 'Keep me signed in on this device', loading: 'Preparing your data…', noData: 'No data has been published yet. Ask the account owner to publish the latest file.',
-      nav_overview: 'Overview', nav_orders: 'Orders', nav_opps: 'Sales opportunities', nav_stores: 'Stores', nav_skus: 'Products', nav_nqc: 'NQC / returns', nav_stock: 'Mars stock', nav_story: 'Presentation', nav_admin: 'Data control',
+      nav_overview: 'Overview', nav_orders: 'Orders', nav_opps: 'Sales opportunities', nav_stores: 'Stores', nav_skus: 'Products', nav_nqc: 'NQC / returns', nav_stock: 'Mars stock', nav_tstock: 'Tamimi stock', tab_tstock: 'Tamimi stock', nav_story: 'Presentation', nav_admin: 'Data control',
       search: 'Search store number, store name, SKU, brand, category — English or العربية', searchEmpty: 'No match. Try a store number (e.g. 142), a ZREP, or a brand like Galaxy / جالكسي.',
       period: 'Periods', from: 'From', to: 'To', region: 'Region', category: 'Category', brand: 'Brand', all: 'All', reset: 'Reset',
       updated: 'Data updated', stockAt: 'Mars stock', ordersTo: 'Orders to', salesTo: 'Sales to', nqcTo: 'NQC to', p: 'P',
@@ -2931,7 +3107,7 @@ var TB = {};
     ar: {
       appName: 'تميمي BDM', appSub: 'مراجعة أعمال مارس × أسواق التميمي',
       login: 'تسجيل الدخول', password: 'كلمة المرور', enter: 'دخول', wrongPw: 'كلمة المرور غير صحيحة لهذه المساحة. راجعها وحاول مرة أخرى.', remember: 'إبقائي مسجلاً على هذا الجهاز', loading: 'جارٍ تجهيز البيانات…', noData: 'لم تُنشر بيانات بعد. اطلب من مسؤول الحساب نشر آخر ملف.',
-      nav_overview: 'نظرة عامة', nav_orders: 'الطلبات', nav_opps: 'فرص المبيعات', nav_stores: 'المتاجر', nav_skus: 'الأصناف', nav_nqc: 'المرتجعات NQC', nav_stock: 'مخزون مارس', nav_story: 'العرض التقديمي', nav_admin: 'التحكم بالبيانات',
+      nav_overview: 'نظرة عامة', nav_orders: 'الطلبات', nav_opps: 'فرص المبيعات', nav_stores: 'المتاجر', nav_skus: 'الأصناف', nav_nqc: 'المرتجعات NQC', nav_stock: 'مخزون مارس', nav_tstock: 'مخزون التميمي', tab_tstock: 'مخزون التميمي', nav_story: 'العرض التقديمي', nav_admin: 'التحكم بالبيانات',
       search: 'ابحث برقم المتجر أو اسمه أو الصنف أو البراند أو الفئة — عربي أو English', searchEmpty: 'لا توجد نتيجة. جرّب رقم متجر (مثل 142) أو ZREP أو براند مثل جالكسي.',
       period: 'الفترات', from: 'من', to: 'إلى', region: 'المنطقة', category: 'الفئة', brand: 'البراند', all: 'الكل', reset: 'إعادة ضبط',
       updated: 'آخر تحديث للبيانات', stockAt: 'مخزون مارس', ordersTo: 'الطلبات حتى', salesTo: 'المبيعات حتى', nqcTo: 'المرتجعات حتى', p: 'ف',
@@ -2991,7 +3167,7 @@ var TB = {};
 (function (TB) {
   'use strict';
   /* opening defaults: Royal Jewels background, English only (applied once to existing devices too) */
-  try { if (TB.ls.get('tbdm.prefv') !== '2') { TB.ls.set('tbdm.lang', 'en'); TB.ls.set('tbdm.bil', '0'); TB.ls.set('tbdm.bg', 'royal'); TB.ls.set('tbdm.prefv', '2'); } } catch (e) { }
+  try { TB.ls.set('tbdm.lang', 'en'); TB.ls.set('tbdm.bil', '0'); TB.ls.set('tbdm.bg', 'royal'); } catch (e) { } /* every launch opens in the default view: Royal Jewels, English only */
   var A = TB.A = { lang: TB.ls.get('tbdm.lang') || 'en', role: null, f: {}, cycle: null, charts: [], tbl: {}, route: 'overview', arg: null, tab: {}, mode: null };
   var $ = TB.$ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = TB.$$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
@@ -3016,6 +3192,7 @@ var TB = {};
   TB.REGCOL = { Center: '#D71920', East: '#1E2130', North: '#2C5AA8', South: '#B4740A', Jeddah: '#0E8A5C', Medina: '#7A5CC0', Unknown: '#9AA0AE' };
   TB.TYPECOL = { gap: '#2C5AA8', missed: '#D71920', under: '#B4740A', listing: '#6A55C9', reactivate: '#646B7E', push: '#0E8A5C' };
   var ICON = TB.ICON = {
+    tstock: '<path d="M3 9.5 12 4l9 5.5"/><path d="M5 9v11h14V9"/><rect x="8" y="12" width="3.5" height="3.5" rx=".6"/><rect x="12.5" y="12" width="3.5" height="3.5" rx=".6"/><rect x="10.2" y="16.2" width="3.5" height="3.5" rx=".6"/>',
     reset: '<path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1"/><path d="M3.5 4v4.5H8"/>',
     palette: '<path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.8-.8 1.8-1.7 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.2 0-.9.8-1.7 1.7-1.7H16a5 5 0 0 0 5-5c0-4-4-7.2-9-7.2Z"/><circle cx="7.5" cy="10.5" r="1.2"/><circle cx="10.5" cy="7" r="1.2"/><circle cx="15" cy="7.5" r="1.2"/>',
     refresh: '<path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/>',
@@ -3362,7 +3539,7 @@ var TB = {};
     var de = document.documentElement, over = function () { return de.scrollHeight - innerHeight; };
     var fsb = document.getElementById('fsub'); if (fsb) { document.documentElement.style.setProperty('--subh', (fsb.hidden ? 0 : fsb.offsetHeight) + 'px'); document.documentElement.style.setProperty('--toph', $('#topbar').offsetHeight + 'px'); }
     var vw0 = document.getElementById('view'); vw0.classList.remove('tight'); vw0.style.zoom = '';
-    document.querySelectorAll('#view .fillv').forEach(function (el) { el.style.height = ''; var top = el.getBoundingClientRect().top + window.scrollY; el.style.height = Math.max(innerHeight < 720 ? 150 : 260, innerHeight - top - 8) + 'px'; });
+    document.querySelectorAll('#view .fillv').forEach(function (el) { el.style.height = ''; var top = el.getBoundingClientRect().top + window.scrollY; el.style.height = Math.max(innerHeight < 720 ? 150 : 210, innerHeight - top - 8) + 'px'; });
     var ids = Object.keys(A.tbl).filter(function (id) { var T = A.tbl[id], r = document.getElementById('tb-' + id); return T.paged && r && r.offsetParent && !r.closest('#sheet') && !r.closest('[hidden]'); });
     var vis = document.querySelectorAll('#view .chart');
     vis.forEach(function (c) { if (c.dataset.h0) c.style.height = ''; });
@@ -3381,7 +3558,7 @@ var TB = {};
       var cs = Array.prototype.filter.call(vis, function (c) { return c.offsetParent; }), byRow = {};
       cs.forEach(function (c) { var y = Math.round(c.getBoundingClientRect().top / 40); (byRow[y] = byRow[y] || []).push(c); });
       var rowsN = Object.keys(byRow).length || 1, cut = Math.ceil(o2 / rowsN);
-      cs.forEach(function (c) { var h = c.offsetHeight; c.dataset.h0 = h; c.style.height = Math.max(170, h - cut) + 'px'; });
+      cs.forEach(function (c) { var h = c.offsetHeight; c.dataset.h0 = h; c.style.height = Math.max(innerHeight < 700 ? 130 : 170, h - cut) + 'px'; });
     }
     var o3 = over(); if (o3 > 0 && !Array.prototype.some.call(document.querySelectorAll('#view canvas'), function (c) { return c.offsetParent; })) { var z = Math.max(0.8, (innerHeight - 8) / (de.scrollHeight)); vw0.style.zoom = z.toFixed(3); }
   };
@@ -3438,7 +3615,12 @@ var TB = {};
   window.addEventListener('hashchange', function () { if (A.E) TB.render(); });
   /* ---------- back: every screen state (page, section, filters) is a step ---------- */
   A.hist = [];
+  TB._tblState = tblState;
+  function tblState() { var o = {}; Object.keys(A.tbl || {}).forEach(function (id) { var T = A.tbl[id]; o[id] = { sort: T.sort, dir: T.dir, q: T.q, pg: T.pg, ps: T.ps, full: T.full, lim: T.lim }; }); return o; }
   function snap() { return JSON.stringify({ h: location.hash || '#overview', t: A.tab, f: A.f, c: A.cycle, s: TB.epSet ? TB.epSet() : '' }); }
+  /* remember where you were on each screen (scroll + table sort/page) so Back returns exactly there */
+  A.view = {};
+  window.addEventListener('scroll', function () { if (A._lastRoute) { var k = (location.hash || '#overview') + '|' + JSON.stringify(A.tab[A.route] || ''); A.view[k] = { y: window.scrollY, tb: tblState() }; } }, { passive: true });
   TB.histPush = function () {
     if (A._restoring) { A._restoring = false; TB.updBack(); return; }
     var s = snap(); if (A.hist[A.hist.length - 1] !== s) { A.hist.push(s); if (A.hist.length > 60) A.hist.shift(); }
@@ -3448,7 +3630,8 @@ var TB = {};
   TB.back = function () {
     if (A.hist.length < 2) return;
     A.hist.pop(); var o = JSON.parse(A.hist[A.hist.length - 1]);
-    A.tab = o.t || {}; A.f = o.f || A.f; A.cycle = o.c || A.cycle; A.memo = {}; A._lastRoute = null; A._restoring = true;
+    var same = JSON.stringify(o.f) === JSON.stringify(A.f) && JSON.stringify(o.c) === JSON.stringify(A.cycle);
+    A.tab = o.t || {}; A.f = o.f || A.f; A.cycle = o.c || A.cycle; if (!same) A.memo = {}; A._lastRoute = null; A._restoring = true; A._backTo = o.h + '|' + JSON.stringify((o.t || {})[o.h.slice(1).split('/')[0]] || '');
     TB.closeSheet(); TB.closeSearch(); TB.closePop && TB.closePop();
     if ((location.hash || '#overview') !== o.h) location.hash = o.h; else TB.render();
   };
@@ -3471,8 +3654,8 @@ var TB = {};
   (function () { var y0 = null; document.addEventListener('touchstart', function (e) { if (e.target.closest('#sheet .grab,#sheet .hd')) y0 = e.touches[0].clientY; }, { passive: true }); document.addEventListener('touchend', function (e) { if (y0 != null && e.changedTouches[0].clientY - y0 > 60) TB.closeSheet(); y0 = null; }, { passive: true }); })();
 
   /* ---------- navigation ---------- */
-  var NAV = [{ s: 'sec_today', i: ['overview', 'orders', 'opps'] }, { s: 'sec_explore', i: ['market', 'stores', 'skus', 'nqc', 'stock'] }, { s: 'sec_share', i: ['reports', 'story'] }, { s: 'sec_control', i: ['admin'], admin: 1 }];
-  var TABS = ['overview', 'orders', 'opps', 'market', 'stores', 'more'];
+  var NAV = [{ s: 'sec_today', i: ['overview', 'orders', 'opps'] }, { s: 'sec_explore', i: ['market', 'tstock', 'stores', 'skus', 'nqc', 'stock'] }, { s: 'sec_share', i: ['reports', 'story'] }, { s: 'sec_control', i: ['admin'], admin: 1 }];
+  var TABS = ['overview', 'orders', 'opps', 'market', 'tstock', 'stores', 'more'];
   TB.navBadge = function (n) {
     try {
       if (n === 'opps') return TB.n0(TB.getOpps({}).length);
@@ -3483,7 +3666,7 @@ var TB = {};
     var navH = '';
     NAV.forEach(function (g) { if (g.admin && A.role !== 'a') return; navH += '<div class="sec">' + t(g.s) + '</div>' + g.i.map(function (n) { var c = n === 'opps' ? TB.navBadge(n) : ''; return '<button data-nav="' + n + '">' + TB.svg(n) + '<span>' + t(n === 'overview' ? 'nav_home' : 'nav_' + n) + '</span>' + (c ? '<span class="cnt">' + c + '</span>' : '') + '</button>'; }).join(''); });
     $('#nav').innerHTML = navH;
-    $('#tabbar').innerHTML = TABS.map(function (n) { return '<button data-tab="' + n + '">' + TB.svg(n) + '<span>' + t(n === 'more' ? 'nav_more' : n === 'overview' ? 'nav_home' : n === 'opps' ? 'tab_opps' : n === 'market' ? 'tab_market' : 'nav_' + n) + '</span></button>'; }).join('');
+    $('#tabbar').innerHTML = TABS.map(function (n) { return '<button data-tab="' + n + '">' + TB.svg(n) + '<span>' + t(n === 'more' ? 'nav_more' : n === 'overview' ? 'nav_home' : n === 'opps' ? 'tab_opps' : n === 'market' ? 'tab_market' : n === 'tstock' ? 'tab_tstock' : 'nav_' + n) + '</span></button>'; }).join('');
     $$('[data-nav]').forEach(function (b) { b.onclick = function () { TB.go(b.getAttribute('data-nav')); }; });
     $$('[data-tab]').forEach(function (b) { b.onclick = function () { TB.tap(); var n = b.getAttribute('data-tab'); if (n === 'more') TB.openMore(); else TB.go(n); }; });
     $('#railMode').innerHTML = TB.modeSegHTML();
@@ -3898,6 +4081,7 @@ var TB = {};
   });
   /* ---------- render dispatcher ---------- */
   TB.render = function () {
+    if (A._curKey && TB._tblState) A.view[A._curKey] = { y: window.scrollY, tb: TB._tblState() };
     TB.parseRoute(); TB.clearCharts();
     if (A.route === 'admin' && A.role !== 'a') { location.hash = 'overview'; return; }
     var P = TB.pages[A.route] || TB.pages.overview;
@@ -3908,6 +4092,7 @@ var TB = {};
     var view = $('#view');
     try {
       view.innerHTML = P.html(A.arg);
+      (function () { var sh = TB.updStampHTML ? TB.updStampHTML(A.route) : ''; if (!sh) return; var ph = view.querySelector(':scope > .ph'), d = view.querySelector(':scope > .dash'); var dh = view.querySelector('.dash .dh'); if (A.mode !== 'mobile' && ph && ph.firstElementChild) ph.firstElementChild.insertAdjacentHTML('beforeend', sh.replace('class="updbar"', 'class="updbar inl"')); else if (ph) ph.insertAdjacentHTML('afterend', sh); else if (dh && A.mode !== 'mobile') dh.insertAdjacentHTML('beforeend', sh.replace('class="updbar"', 'class="updbar onhero"')); else if (d) d.insertAdjacentHTML('afterbegin', sh); else view.insertAdjacentHTML('afterbegin', sh); })();
       TB.drawTables();
       if (P.after) P.after(A.arg);
       TB.biPass(view);
@@ -3919,6 +4104,8 @@ var TB = {};
       view.classList.remove('enter'); void view.offsetWidth; view.classList.add('enter');
       window.scrollTo(0, 0);
     }
+    if (A._backTo) { var bv = A.view[A._backTo]; A._backTo = null; if (bv) { if (bv.tb) Object.keys(bv.tb).forEach(function (id) { var T = A.tbl[id]; if (T) { Object.assign(T, bv.tb[id]); TB.drawTable(id); } }); setTimeout(function () { window.scrollTo(0, bv.y || 0); }, 40); } }
+    A._curKey = (location.hash || '#overview') + '|' + JSON.stringify(A.tab[A.route] || '');
     TB.histPush();
     if (A.anchor) { var an = document.getElementById(A.anchor); A.anchor = null; if (an) setTimeout(function () { var y = an.getBoundingClientRect().top + window.scrollY - (A.mode === 'mobile' ? (parseInt(getComputedStyle(document.documentElement).getPropertyValue('--fh')) || 0) + 76 : 130); window.scrollTo({ top: y, behavior: 'smooth' }); }, 80); }
   };
@@ -5435,6 +5622,222 @@ var TB = {};
     TB.$$('[data-rsctn]').forEach(function (b) { b.onclick = function () { TB.tap(); A.tab.rsCtn = +b.getAttribute('data-rsctn'); TB.render(); }; });
     TB.$$('[data-rsview]').forEach(function (b) { b.onclick = function () { TB.tap(); A.tab.rsView = b.getAttribute('data-rsview'); TB.render(); }; });
   };
+})(TB);
+
+/* ---- ui-tstock.js ---- */
+/* ===================== TAMIMI STORE STOCK — dashboard ===================== */
+(function (TB) {
+  'use strict';
+  var A = TB.A, t = TB.t, esc = TB.esc, n0 = TB.n0, tn = TB.tn, money = TB.money;
+  function L(en, ar) { return TB.LP(en, ar); }
+  function sumBy(a, f) { var s = 0; a.forEach(function (x) { s += +f(x) || 0; }); return s; }
+
+  /* ---------- "updated" stamps: when each data source was last refreshed ---------- */
+  var SRC = {
+    storestock: ['Tamimi stock', 'مخزون التميمي'], stock: ['Mars stock', 'مخزون مارس'], sales: ['Sales', 'المبيعات'], nqc: ['NQC', 'المرتجعات'],
+    orders: ['Orders', 'الطلبات'], epos: ['EPOS sell-out', 'مبيعات EPOS'], stores: ['Store info', 'بيانات المتاجر']
+  };
+  var PAGE_SRC = { overview: ['sales', 'orders', 'stock', 'storestock'], orders: ['orders', 'stock'], opps: ['orders', 'stock', 'storestock'], market: ['epos'], tstock: [],
+    stores: ['sales', 'nqc', 'epos'], skus: ['sales', 'stock'], nqc: ['nqc', 'sales'], stock: ['stock'], store: ['sales', 'orders', 'storestock'], sku: ['sales', 'stock'], reports: ['sales', 'orders', 'stock', 'storestock', 'epos'], story: ['sales', 'orders', 'stock'] };
+  TB.updAt = function (k) {
+    var D = A.D; if (!D) return null; var u = (D.meta && D.meta.upd) || {};
+    if (u[k]) return u[k];
+    if (k === 'stock' && D.meta.stockDate) return D.meta.stockDate;
+    if (k === 'storestock' && !D.storeStock) return null;
+    if (k === 'epos' && !(D.epos && D.epos.length)) return null;
+    if (k === 'epos' && D.raw && D.raw.eposSheet && D.raw.eposSheet.at) return D.raw.eposSheet.at;
+    return A.pkgTime || D.meta.builtAt || null;
+  };
+  function ago(iso) { var d = (Date.now() - new Date(iso).getTime()) / 864e5; return d; }
+  function when(iso) {
+    var d = new Date(iso); if (isNaN(d)) return '–';
+    var dd = d.toLocaleDateString(A.lang === 'ar' ? 'ar-SA-u-nu-latn-ca-gregory' : 'en-GB', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' });
+    var tt = d.toLocaleTimeString(A.lang === 'ar' ? 'ar-SA-u-nu-latn' : 'en-GB', { hour: '2-digit', minute: '2-digit' });
+    return dd + ' · ' + tt;
+  }
+  TB.updStampHTML = function (route) {
+    var ks = PAGE_SRC[route]; if (!ks || !A.D) return '';
+    var items = ks.map(function (k) { var at = TB.updAt(k); if (!at) return ''; var a = ago(at), cls = a < 2 ? 'fresh' : a < 8 ? 'warm' : 'old';
+      return '<span class="upd ' + cls + '" title="' + esc(L('Last updated', 'آخر تحديث')) + '"><i></i><em>' + esc(L(SRC[k][0], SRC[k][1])) + '</em><b class="lg">' + esc(when(at)) + '</b><b class="sh">' + esc(TB.fmtShort(at)) + '</b></span>'; }).filter(Boolean);
+    if (!items.length) return '';
+    return '<div class="updbar"><span class="updl">' + TB.svg('clock') + esc(L('Updated', 'آخر تحديث')) + '</span>' + items.join('') + '</div>';
+  };
+
+  /* ---------- data ---------- */
+  /* price of ONE Tamimi piece (the unit in the Tamimi SOH column), per SKU.
+     1) items Tamimi ordered: order value ÷ order pieces (exact Tamimi unit price)
+     2) not ordered: a sibling item of the same brand + same Tamimi case size that was ordered,
+        scaled by Mars carton price (handles gum/KIND where the Mars carton holds many Tamimi cases)
+     3) otherwise Mars carton price ÷ Tamimi case size, only if it is in a sane range for the category */
+  TB.piecePrice = function () {
+    return TB.memo('tsPP', function () {
+      var D = A.D, O = {}, out = {};
+      D.orders.forEach(function (o) { if (!(o.q > 0 && o.v > 0)) return; var x = O[o.k] || (O[o.k] = { q: 0, v: 0 }); x.q += o.q; x.v += o.v; });
+      var P = function (k) { return k.price || k.gs || k.p || 0; };
+      var refs = {}, catPP = {};
+      Object.keys(O).forEach(function (i) { var k = D.skus[i], pp = O[i].v / O[i].q; out[i] = { pp: pp, m: 'order' }; (catPP[k.c] = catPP[k.c] || []).push(pp);
+        if (P(k)) { var r = P(k) / pp; [k.b + '|' + k.cs, k.b, 'C|' + k.c].forEach(function (g) { (refs[g] = refs[g] || []).push(r); }); } });
+      var med = function (a) { a = a.slice().sort(function (x, y) { return x - y; }); return a[a.length >> 1]; };
+      var cm = {}; Object.keys(catPP).forEach(function (c) { cm[c] = med(catPP[c]); });
+      D.skus.forEach(function (k) {
+        if (out[k.i]) return; var Pk = P(k), direct = k.cs > 0 && Pk ? Pk / k.cs : null, ref = cm[k.c];
+        var sane = function (pp) { return pp && (!ref || (pp > ref / 4 && pp < ref * 4)); };
+        if (sane(direct) && !(refs[k.b + '|' + k.cs] && Math.abs(Math.log(direct / (Pk / med(refs[k.b + '|' + k.cs])))) > 0.7)) { out[k.i] = { pp: direct, m: 'case' }; return; }
+        var g = refs[k.b + '|' + k.cs] || refs[k.b] || refs['C|' + k.c];
+        if (g && Pk) { out[k.i] = { pp: Pk / med(g), m: 'similar' }; return; }
+        out[k.i] = { pp: direct || 0, m: direct ? 'case' : 'none' };
+      });
+      return out;
+    });
+  };
+  function rowsAll() {
+    return TB.memo('tsRows', function () {
+      var D = A.D, ss = D.storeStock || {}, PP = TB.piecePrice(), out = [];
+      Object.keys(ss).forEach(function (key) {
+        var p = key.split('|'), s = D.stores[+p[0]], k = D.skus[+p[1]]; if (!s || !k) return;
+        var pcs = ss[key], cs = k.cs > 1 ? k.cs : null, q = Math.max(0, pcs), ctn = cs ? q / cs : q, pr = PP[k.i] || { pp: 0 };
+        out.push({ s: s, k: k, pcs: pcs, ctn: ctn, val: q * pr.pp, pm: pr.m, act: k.active !== false, neg: pcs < 0, zero: pcs <= 0 });
+      });
+      return out;
+    });
+  }
+  function rowsF() {
+    var f = A.f, st = A.tab.tsSt || 'all';
+    return rowsAll().filter(function (r) {
+      if (f.region && r.s.region !== f.region) return false;
+      if (f.cat && r.k.c !== f.cat) return false;
+      if (f.brand && r.k.b !== f.brand && r.k.bf !== f.brand) return false;
+      if (st === 'act' && !r.act) return false; if (st === 'ina' && r.act) return false;
+      return true;
+    });
+  }
+  function agg(rows, by) {
+    var m = {};
+    rows.forEach(function (r) { var k = by(r); var o = m[k] || (m[k] = { key: k, val: 0, ctn: 0, pcs: 0, lines: 0, skus: {}, stores: {}, ina: 0, inaVal: 0, zero: 0, r0: r });
+      o.val += r.val; o.ctn += r.ctn || 0; o.pcs += Math.max(0, r.pcs); o.lines++; o.skus[r.k.i] = 1; o.stores[r.s.i] = 1; if (!r.act) { o.ina++; o.inaVal += r.val; } if (r.zero) o.zero++; });
+    return Object.keys(m).map(function (k) { var o = m[k]; o.nSku = Object.keys(o.skus).length; o.nSt = Object.keys(o.stores).length; return o; });
+  }
+  function fmtC(v) { return v >= 1e4 ? TB.kv(v) : n0(Math.round(v)); }
+
+  /* ---------- previous file + 35-day history ---------- */
+  function passF(s, k) { var f = A.f, st = A.tab.tsSt || 'all'; if (f.region && s.region !== f.region) return false; if (f.cat && k.c !== f.cat) return false; if (st === 'act' && k.active === false) return false; if (st === 'ina' && k.active !== false) return false; return true; }
+  function prevRows() {
+    return TB.memo('tsPrev', function () { var D = A.D, sp = D.storeStockPrev; if (!sp) return null; var PP = TB.piecePrice(), out = [];
+      Object.keys(sp).forEach(function (key) { var p = key.split('|'), s = D.stores[+p[0]], k = D.skus[+p[1]]; if (!s || !k) return; var q = Math.max(0, sp[key]), cs = k.cs > 1 ? k.cs : null; out.push({ s: s, k: k, ctn: cs ? q / cs : q, val: q * ((PP[k.i] || {}).pp || 0) }); });
+      return out; });
+  }
+  function prevTot() { var R = prevRows(); if (!R) return {}; var v = 0, c = 0; R.forEach(function (r) { if (passF(r.s, r.k)) { v += r.val; c += r.ctn; } }); return { val: v, ctn: c }; }
+  function histSeries() {
+    var D = A.D, H = D.ssHist || [], PP = TB.piecePrice(), f = A.f;
+    var skuOf = function (key) { var z = key.charAt(0) === 'a' ? D.artToZ[key.slice(1)] : key, ki = D.kByZ[z]; return ki == null ? null : D.skus[ki]; };
+    return H.map(function (h) { var v = 0; Object.keys(h.sk || {}).forEach(function (key) { var k = skuOf(key); if (!k || (f.cat && k.c !== f.cat)) return; v += h.sk[key] * ((PP[k.i] || {}).pp || 0); }); return { at: h.at, v: v }; });
+  }
+  function changeHTML() {
+    var D = A.D, S = TB.SAR(), P = prevRows(), U = A.tab.tsU || 'val', by = A.tab.tsChBy || 'st', mob = A.mode === 'mobile';
+    var hs = histSeries(), h = '';
+    if (!P) return '<div class="pn ts-empty"><div class="ts-ei">' + TB.svg('up') + '</div><h3>' + L('Comparison starts with your next update', 'المقارنة تبدأ من التحديث القادم') + '</h3><p class="hint">' + L('Each time you upload a new Tamimi stock file, the app keeps the previous one and a daily total for 35 days, then shows what went up or down by store and item.', 'كل مرة ترفع فيها ملف مخزون جديد، يحتفظ التطبيق بالملف السابق وبإجمالي يومي لمدة 35 يوماً، ثم يوضح ما زاد أو نقص حسب الفرع والصنف.') + '</p></div>';
+    var key = by === 'st' ? function (r) { return r.s.i; } : function (r) { return r.k.i; };
+    var m = {}; rowsF().forEach(function (r) { var o = m[key(r)] || (m[key(r)] = { r0: r, now: 0, was: 0 }); o.now += U === 'ctn' ? r.ctn : r.val; });
+    P.forEach(function (r) { if (!passF(r.s, r.k)) return; var o = m[key(r)] || (m[key(r)] = { r0: r, now: 0, was: 0 }); o.was += U === 'ctn' ? r.ctn : r.val; });
+    var rows = Object.keys(m).map(function (k) { var o = m[k]; o.d = o.now - o.was; return o; });
+    var up = rows.filter(function (o) { return o.d > 0; }).length, dn = rows.filter(function (o) { return o.d < 0; }).length;
+    var fm = U === 'ctn' ? fmtC : money;
+    h += '<div class="tsch"><div class="tsch-l"><span>' + L('Previous file', 'الملف السابق') + '</span><b>' + esc(TB.fmtDate(D.meta.ssPrevAt, true) || '–') + '</b></div><div class="tsch-l"><span>' + L('Went up', 'زاد') + '</span><b class="up">' + n0(up) + '</b></div><div class="tsch-l"><span>' + L('Went down', 'نقص') + '</span><b class="dn">' + n0(dn) + '</b></div>' +
+      '<div class="ts-seg">' + [['st', L('By store', 'حسب الفرع')], ['sku', L('By item', 'حسب الصنف')]].map(function (x) { return '<button class="' + (by === x[0] ? 'on' : '') + '" data-tsch="' + x[0] + '">' + esc(x[1]) + '</button>'; }).join('') + '</div></div>';
+    if (hs.length > 1) h += '<div class="pn"><h3>' + L('Stock value, last 35 days', 'قيمة المخزون آخر 35 يوماً') + '</h3><div class="chart" style="height:180px"><canvas id="tsHist"></canvas></div></div>';
+    var name = by === 'st' ? { h: t('store'), v: function (o) { return o.r0.s.name; }, f: function (o) { return TB.storeLink(o.r0.s); } } : { h: t('sku'), v: function (o) { return o.r0.k.d; }, f: function (o) { return TB.skuLink(o.r0.k); }, wrap: 1 };
+    h += '<section class="pn">' + TB.table('tsD', [name,
+      { h: L('Previous', 'السابق'), n: 1, v: function (o) { return o.was; }, f: function (o) { return fm(o.was); }, sum: function (R) { return fm(sumBy(R, function (o) { return o.was; })); } },
+      { h: L('Now', 'الآن'), n: 1, v: function (o) { return o.now; }, f: function (o) { return '<b>' + fm(o.now) + '</b>'; }, sum: function (R) { return fm(sumBy(R, function (o) { return o.now; })); } },
+      { h: L('Change', 'التغيّر'), n: 1, v: function (o) { return o.d; }, f: function (o) { return '<b class="' + (o.d >= 0 ? 'up' : 'dn') + '">' + (o.d >= 0 ? '+' : '−') + fm(Math.abs(o.d)) + '</b>'; }, sum: function (R) { var d = sumBy(R, function (o) { return o.d; }); return '<b class="' + (d >= 0 ? 'up' : 'dn') + '">' + (d >= 0 ? '+' : '−') + fm(Math.abs(d)) + '</b>'; } },
+      { h: '%', n: 1, v: function (o) { return o.was ? o.d / o.was : null; }, f: function (o) { return o.was ? '<span class="' + (o.d >= 0 ? 'up' : 'dn') + '">' + (o.d >= 0 ? '+' : '') + (o.d / o.was * 100).toFixed(1) + '%</span>' : '<span class="up">' + L('new', 'جديد') + '</span>'; } }
+    ], rows, { sort: 3, dir: 1, peek: mob ? 25 : null, file: 'Tamimi_stock_change' }) + '</section>';
+    return h;
+  }
+  /* ---------- page ---------- */
+  TB.pages.tstock = {
+    html: function () {
+      TB.filterBar({ cycle: false, period: false });
+      var D = A.D, S = TB.SAR(), mob = A.mode === 'mobile';
+      var h = TB.ph(t('nav_tstock'), L('Shelf stock in every Tamimi store from the latest Tamimi stock file. Cartons = pieces ÷ carton size; value = cartons × Mars carton price. Active / inactive is the Tamimi article status.', 'المخزون على الرف في كل فرع من آخر ملف مخزون للتميمي. الكراتين = الحبات ÷ عدد الحبات في الكرتون، والقيمة = الكراتين × سعر الكرتون. نشط / غير نشط حسب حالة الصنف في التميمي.'),
+        mob ? '' : '<button class="btn pri" id="tsDl">' + TB.svg('dl') + t('dlTable') + '</button>');
+      /* the source file: template + update, always at hand */
+      var at = TB.updAt('storestock'), nStF = D.storeStock ? Object.keys(Object.keys(D.storeStock).reduce(function (o, k) { o[k.split('|')[0]] = 1; return o; }, {})).length : 0;
+      h += '<div class="tsrc' + (D.storeStock ? ' ok' : '') + '"><div class="tsrc-i">' + TB.svg('tstock') + '</div><div class="tsrc-t"><b>' + (D.storeStock ? L('Tamimi stock file', 'ملف مخزون التميمي') : L('No Tamimi stock file yet', 'لا يوجد ملف مخزون للتميمي بعد')) + '</b><span>' + (D.storeStock ? (at ? TB.fmtDate(at, true) : '') + ' · ' + n0(nStF) + ' ' + L('stores', 'فرع') : L('Download the template, fill Store, Article and SOH (pieces), then upload.', 'نزّل النموذج واملأ الفرع والصنف والكمية بالحبة ثم ارفعه.')) + '</span></div>' +
+        '<div class="tsrc-b"><button class="btn" id="tsTpl">' + TB.svg('dl') + '<span>' + L('Template', 'النموذج') + '</span></button><button class="btn pri" id="tsUp">' + TB.svg('upl') + '<span>' + L('Update', 'تحديث') + '</span></button>' + (mob ? '<button class="btn ico" id="tsDl" aria-label="Excel">' + TB.svg('table') + '</button>' : '') + '</div><input type="file" id="tsFile" accept=".xlsx,.xlsm,.xls,.csv" hidden></div>';
+      if (!D.storeStock) return h + '<div class="pn ts-empty"><div class="ts-ei">' + TB.svg('tstock') + '</div><h3>' + L('No Tamimi stock loaded yet', 'لم يتم رفع مخزون التميمي بعد') + '</h3><p class="hint">' + L('Upload the Tamimi stock sheet (Store, Article or ZREP, SOH in pieces) to see cartons and value by region, store and category.', 'ارفع شيت مخزون التميمي (الفرع، Article أو ZREP، الكمية بالحبة) لعرض الكراتين والقيمة حسب المنطقة والفرع والفئة.') + '</p></div>';
+      var all = rowsAll(), R = rowsF(), st = A.tab.tsSt || 'all', U = A.tab.tsU || 'val';
+      var fAll = all.filter(function (r) { return (!A.f.region || r.s.region === A.f.region) && (!A.f.cat || r.k.c === A.f.cat); });
+      var tv = sumBy(R, function (r) { return r.val; }), tc = sumBy(R, function (r) { return r.ctn || 0; });
+      var act = fAll.filter(function (r) { return r.act; }), ina = fAll.filter(function (r) { return !r.act; });
+      var av = sumBy(act, function (r) { return r.val; }), iv = sumBy(ina, function (r) { return r.val; }), allV = av + iv || 1;
+      var skuA = {}, skuI = {}; act.forEach(function (r) { skuA[r.k.i] = 1; }); ina.forEach(function (r) { skuI[r.k.i] = 1; });
+      var nSt = {}; R.forEach(function (r) { if (r.pcs > 0) nSt[r.s.i] = 1; });
+            /* controls: status + unit, as buttons */
+      h += '<div class="ts-ctl"><div class="ts-seg">' + [['all', mob ? L('All', 'الكل') : L('All items', 'كل الأصناف'), n0(Object.keys(skuA).length + Object.keys(skuI).length)], ['act', L('Active', 'نشط'), n0(Object.keys(skuA).length)], ['ina', L('Inactive', 'غير نشط'), n0(Object.keys(skuI).length)]].map(function (x) { return '<button class="' + (st === x[0] ? 'on' : '') + ' s-' + x[0] + '" data-tsst="' + x[0] + '"><i></i>' + esc(x[1]) + '<b>' + x[2] + '</b></button>'; }).join('') + '</div>' +
+        '<div class="ts-seg u">' + [['val', L('Value (SAR)', 'القيمة (ر.س)')], ['ctn', L('Cartons', 'الكراتين')]].map(function (x) { return '<button class="' + (U === x[0] ? 'on' : '') + '" data-tsu="' + x[0] + '">' + esc(x[1]) + '</button>'; }).join('') + '</div></div>';
+      /* KPIs */
+      var k = function (lab, v, unit, sub, cls) { return '<div class="tsk ' + (cls || '') + '"><span>' + esc(lab) + '</span><b>' + v + (unit ? '<small>' + unit + '</small>' : '') + '</b>' + (sub ? '<em>' + sub + '</em>' : '') + '</div>'; };
+      var pa = av / allV, PV = prevTot();
+      var dl = function (now, was) { if (was == null) return ''; var d = now - was, p = was ? d / was : 0; return '<span class="tsd ' + (d >= 0 ? 'up' : 'dn') + '">' + (d >= 0 ? '▲ +' : '▼ ') + (Math.abs(p) * 100).toFixed(1) + '%</span> ' + esc(L('vs previous file', 'عن الملف السابق')); };
+      h += '<section class="tsks">' +
+        k(L('Stock value', 'قيمة المخزون'), money(tv), S, dl(tv, PV.val), 'hero') +
+        k(L('Cartons', 'الكراتين'), fmtC(tc), '', dl(tc, PV.ctn)) +
+        k(L('Stores', 'الفروع'), n0(Object.keys(nSt).length), '', '') +
+        '<div class="tsk ai2"><span>' + L('Active · Inactive', 'نشط · غير نشط') + '</span><div class="ai2-n"><b class="a">' + n0(Object.keys(skuA).length) + '</b><b class="n">' + n0(Object.keys(skuI).length) + '</b></div><div class="ai-bar sm"><i class="a" style="width:' + (pa * 100).toFixed(1) + '%"></i><i class="n" style="width:' + ((1 - pa) * 100).toFixed(1) + '%"></i></div><em>' + L('by value ', 'بالقيمة ') + (pa * 100).toFixed(0) + '% · ' + ((1 - pa) * 100).toFixed(0) + '%</em></div>' +
+        '</section>';
+      var sb = TB.secBar('tstock', [['ov', L('Dashboard', 'لوحة المؤشرات'), 'overview'], ['reg', L('By region', 'حسب المنطقة'), 'pin'], ['st', L('By store', 'حسب الفرع'), 'stores', n0(Object.keys(nSt).length)], ['cat', L('By category', 'حسب الفئة'), 'market'], ['sku', L('By item', 'حسب الصنف'), 'skus'], ['chg', L('Change', 'التغيّر'), 'up'], ['ina', L('Inactive items', 'الأصناف غير النشطة'), 'warn', n0(Object.keys(skuI).length)]]), sec = sb.cur;
+      h += sb.html;
+      var vOf = function (o) { return U === 'ctn' ? o.ctn : o.val; }, vFmt = function (v) { return U === 'ctn' ? fmtC(v) : money(v); };
+      if (sec === 'ov') {
+        h += '<section class="grid ts-g' + (mob ? '' : ' fillv') + '"><div class="pn"><h3>' + L('By region', 'حسب المنطقة') + '</h3><div class="chart"><canvas id="tsReg"></canvas></div></div>' +
+          '<div class="pn"><h3>' + L('By category', 'حسب الفئة') + '</h3><div class="dnw"><div class="chart"><canvas id="tsCat"></canvas></div><div class="dleg" id="tsCatLeg"></div></div></div>' +
+          '<div class="pn ts-ai"><h3>' + L('Active vs inactive · value', 'نشط مقابل غير نشط · القيمة') + '</h3>' + aiHTML(av, iv, Object.keys(skuA).length, Object.keys(skuI).length, act, ina) + '</div></section>';
+      }
+      var cols = function (first) { return first.concat([
+        { h: L('Cartons', 'كراتين'), n: 1, v: function (o) { return o.ctn; }, f: function (o) { return fmtC(o.ctn); }, sum: function (rows) { return fmtC(sumBy(rows, function (o) { return o.ctn; })); } },
+        { h: L('Value', 'القيمة') + ' (' + S + ')', n: 1, v: function (o) { return o.val; }, f: function (o) { return '<b>' + money(o.val) + '</b>'; }, sum: function (rows) { return money(sumBy(rows, function (o) { return o.val; })); } },
+        { h: L('Share', 'الحصة'), n: 1, v: function (o) { return tv ? o.val / tv : 0; }, f: function (o) { var p = tv ? o.val / tv : 0; return '<span class="ctb"><span class="tr"><i style="width:' + Math.min(100, p * 100 * 3).toFixed(1) + '%"></i></span><b>' + (p * 100).toFixed(1) + '%</b></span>'; } },
+        { h: L('Inactive value', 'قيمة غير النشط'), n: 1, v: function (o) { return o.inaVal; }, f: function (o) { return o.inaVal ? '<span class="dn">' + money(o.inaVal) + '</span>' : '–'; } }]); };
+      if (sec === 'reg') h += '<section class="pn">' + TB.table('tsR', cols([{ h: t('region'), v: function (o) { return tn(o.key); }, f: function (o) { return '<span class="cd"><span class="dot" style="background:' + (TB.REGCOL[o.key] || '#999') + '"></span>' + esc(tn(o.key)) + '</span>'; } }, { h: L('Stores', 'الفروع'), n: 1, v: function (o) { return o.nSt; } }, { h: L('Items', 'الأصناف'), n: 1, v: function (o) { return o.nSku; } }]), agg(R, function (r) { return r.s.region; }), { sort: 4, peek: mob ? 25 : null, bar: false, file: 'Tamimi_stock_regions' }) + '</section>';
+      if (sec === 'st') h += '<section class="pn">' + TB.table('tsS', cols([{ h: t('store'), v: function (o) { return o.r0.s.name; }, f: function (o) { return TB.storeLink(o.r0.s); } }, { h: t('region'), v: function (o) { return tn(o.r0.s.region); } }, { h: L('Items', 'الأصناف'), n: 1, v: function (o) { return o.nSku; } }]), agg(R, function (r) { return r.s.i; }), { sort: 4, peek: mob ? 25 : null, file: 'Tamimi_stock_stores', click: function (o) { TB.go('store/' + o.r0.s.i); } }) + '</section>';
+      if (sec === 'cat') h += '<section class="pn">' + TB.table('tsC', cols([{ h: t('category'), v: function (o) { return tn(o.key); }, f: function (o) { return TB.catDot(o.key); } }, { h: L('Stores', 'الفروع'), n: 1, v: function (o) { return o.nSt; } }, { h: L('Items', 'الأصناف'), n: 1, v: function (o) { return o.nSku; } }]), agg(R, function (r) { return r.k.c; }), { sort: 4, peek: mob ? 25 : null, bar: false, file: 'Tamimi_stock_categories' }) + '</section>';
+      var skuCols = function () { return [
+        { h: t('sku'), v: function (o) { return o.r0.k.d; }, f: function (o) { return TB.skuLink(o.r0.k) + '<div class="mut">' + esc(o.r0.k.z) + (o.r0.k.art ? ' · ' + esc(o.r0.k.art) : '') + '</div>'; }, wrap: 1 },
+        { h: t('category'), v: function (o) { return tn(o.r0.k.c); }, f: function (o) { return TB.catDot(o.r0.k.c); } },
+        { h: L('Status', 'الحالة'), v: function (o) { return o.r0.act ? 'Active' : 'Inactive'; }, f: function (o) { return o.r0.act ? TB.pill('ok', L('Active', 'نشط')) : TB.pill('oos', L('Inactive', 'غير نشط')) + '<div class="mut">' + esc(o.r0.k.st || '') + '</div>'; } },
+        { h: L('Stores', 'الفروع'), n: 1, v: function (o) { return o.nSt; } },
+        { h: L('Cartons', 'كراتين'), n: 1, v: function (o) { return o.ctn; }, f: function (o) { return fmtC(o.ctn); }, sum: function (rows) { return fmtC(sumBy(rows, function (o) { return o.ctn; })); } },
+        { h: L('Value', 'القيمة') + ' (' + S + ')', n: 1, v: function (o) { return o.val; }, f: function (o) { return '<b>' + money(o.val) + '</b>'; }, sum: function (rows) { return money(sumBy(rows, function (o) { return o.val; })); } }]; };
+      if (sec === 'sku') h += '<section class="pn">' + TB.table('tsK', skuCols(), agg(R, function (r) { return r.k.i; }), { sort: 5, peek: mob ? 25 : null, file: 'Tamimi_stock_items' }) + '</section>';
+      if (sec === 'chg') h += changeHTML();
+      if (sec === 'ina') h += '<div class="note warn">' + TB.svg('warn') + '<span>' + L('Items marked inactive in Tamimi but still on the shelf: ', 'أصناف غير نشطة في التميمي وما زالت على الرف: ') + '<b>' + money(iv) + ' ' + S + '</b> ' + L('in ', 'في ') + n0(Object.keys(skuI).length) + ' ' + L('items — candidates to sell through or re-activate.', 'صنف — تحتاج تصريف أو إعادة تفعيل.') + '</span></div>' +
+        '<section class="pn">' + TB.table('tsI', skuCols(), agg(ina.filter(function (r) { return !A.f.brand || r.k.b === A.f.brand; }), function (r) { return r.k.i; }), { sort: 5, peek: mob ? 25 : null, file: 'Tamimi_stock_inactive' }) + '</section>';
+      return h;
+    },
+    after: function () {
+      var up = document.getElementById('tsUp'), up2 = null, fl = document.getElementById('tsFile'), tp = document.getElementById('tsTpl'); if (tp) tp.onclick = function () { TB.stockTemplate(); };
+      if (fl) { var go = function () { fl.click(); }; if (up) up.onclick = go; if (up2) up2.onclick = go; fl.onchange = function () { if (!fl.files[0]) return; var nm = fl.files[0].name; TB.ingestFile(fl.files[0], function () { A.memo = {}; A._lastRoute = null; TB.render(); TB.toast(L('Tamimi stock updated: ', 'تم تحديث مخزون التميمي: ') + nm); }); }; }
+      var dl = document.getElementById('tsDl'); if (dl) dl.onclick = function () { var id = ['tsR', 'tsS', 'tsC', 'tsK', 'tsI'].filter(function (x) { return document.getElementById('tb-' + x); })[0]; if (id) TB.exportTable(id); else { A.tab.tstock = 'st'; A._lastRoute = null; TB.render(); setTimeout(function () { TB.exportTable('tsS'); }, 300); } };
+      TB.$$('[data-tsst]').forEach(function (b) { b.onclick = function () { TB.tap(); A.tab.tsSt = b.getAttribute('data-tsst'); A._lastRoute = null; TB.render(); }; });
+      TB.$$('[data-tsu]').forEach(function (b) { b.onclick = function () { TB.tap(); A.tab.tsU = b.getAttribute('data-tsu'); A._lastRoute = null; TB.render(); }; });
+      TB.$$('[data-tsch]').forEach(function (b) { b.onclick = function () { TB.tap(); A.tab.tsChBy = b.getAttribute('data-tsch'); A._lastRoute = null; TB.render(); }; });
+      if (document.getElementById('tsHist')) { var hs = histSeries(); TB.chart('tsHist', { type: 'line', data: { labels: hs.map(function (x) { return TB.fmtShort(x.at); }), datasets: [{ label: L('Stock value', 'قيمة المخزون'), data: hs.map(function (x) { return x.v; }), borderColor: '#E9C46A', backgroundColor: 'rgba(233,196,106,.15)', fill: true, tension: .3, pointRadius: 3 }] }, options: { vlab: { fmt: function (v) { return TB.kv(v); } }, plugins: { legend: { display: false } }, scales: { y: { ticks: { callback: TB.axisMoney } }, x: { grid: { display: false } } } } }); }
+      if (!A.D.storeStock || (A.tab.tstock || 'ov') !== 'ov') return;
+      var R = rowsF(), U = A.tab.tsU || 'val', vOf = function (o) { return U === 'ctn' ? o.ctn : o.val; }, fm = U === 'ctn' ? function (v) { return fmtC(v); } : function (v) { return money(v); };
+      TB.rankChart('tsReg', agg(R, function (r) { return r.s.region; }).map(function (o) { return { label: tn(o.key), v: vOf(o), col: TB.REGCOL[o.key] || '#999' }; }), { fmt: fm, note: U === 'ctn' ? L('Cartons', 'بالكرتون') : L('Value, SAR', 'القيمة بالريال') });
+      var cs = agg(R, function (r) { return r.k.c; }).filter(function (o) { return vOf(o) > 0; }).sort(function (a, b) { return vOf(b) - vOf(a); });
+      TB.donutChart('tsCat', cs.map(function (o) { return { label: tn(o.key), v: vOf(o), col: TB.CATCOL[o.key] || '#999' }; }), { center: U === 'ctn' ? L('Cartons', 'كراتين') : L('Stock value', 'قيمة المخزون') });
+    }
+  };
+  function aiHTML(av, iv, na, ni, act, ina) {
+    var tot = av + iv || 1, S = TB.SAR(), pa = av / tot;
+    var top = {}; ina.forEach(function (r) { var o = top[r.k.i] || (top[r.k.i] = { k: r.k, v: 0, st: {} }); o.v += r.val; o.st[r.s.i] = 1; });
+    var tl = Object.keys(top).map(function (k) { return top[k]; }).sort(function (a, b) { return b.v - a.v; }).slice(0, 4);
+    return '<div class="ai-bar"><i class="a" style="width:' + (pa * 100).toFixed(1) + '%"></i><i class="n" style="width:' + ((1 - pa) * 100).toFixed(1) + '%"></i></div>' +
+      '<div class="ai-l"><div class="a"><span><i></i>' + L('Active', 'نشط') + '</span><b>' + money(av) + '</b><em>' + (pa * 100).toFixed(1) + '% · ' + n0(na) + ' ' + L('items', 'صنف') + '</em></div><div class="n"><span><i></i>' + L('Inactive', 'غير نشط') + '</span><b>' + money(iv) + '</b><em>' + ((1 - pa) * 100).toFixed(1) + '% · ' + n0(ni) + ' ' + L('items', 'صنف') + '</em></div></div>' +
+      (tl.length ? '<div class="ai-t"><small>' + L('Largest inactive items on shelf', 'أكبر أصناف غير نشطة على الرف') + '</small>' + tl.map(function (o) { return '<a data-go="sku/' + o.k.i + '"><bdi>' + esc(o.k.d || o.k.td || o.k.z) + '</bdi><span>' + Object.keys(o.st).length + ' ' + L('stores', 'فرع') + '</span><b>' + money(o.v) + '</b></a>'; }).join('') + '<button class="lnk" data-sec="tstock|ina">' + L('See all inactive items', 'كل الأصناف غير النشطة') + ' ›</button></div>' : '');
+  }
 })(TB);
 
 /* ---- ui-admin.js ---- */
@@ -8797,7 +9200,7 @@ var TB = {};
       function fit() {
         if (!stage || !sc) return;
         var fs = document.fullscreenElement === pz, dock = pz.querySelector('.pz-dock'), W = pz.clientWidth;
-        var Hh = fs ? window.innerHeight - 96 : (A.mode === 'mobile' ? Infinity : Math.max(320, window.innerHeight - stage.getBoundingClientRect().top - (dock ? dock.offsetHeight : 64) - 28)), k = Math.min(W / SW, Hh / SH);
+        var Hh = fs ? window.innerHeight - 96 : (A.mode === 'mobile' ? Infinity : Math.max(240, window.innerHeight - stage.getBoundingClientRect().top - (dock ? dock.offsetHeight : 64) - 28)), k = Math.min(W / SW, Hh / SH);
         if (!fs && A.mode !== 'mobile') { pz.style.maxWidth = Math.round(SW * k) + 'px'; pz.style.marginInline = 'auto'; W = Math.round(SW * k); }
         sc.style.transform = 'scale(' + k + ')'; stage.style.height = (SH * k) + 'px'; stage.style.width = fs ? '' : (A.mode === 'mobile' ? '' : W + 'px');
         if (fs) { sc.style.left = ((W - SW * k) / 2) + 'px'; } else sc.style.left = '0px';

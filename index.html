@@ -398,6 +398,7 @@ table.t{width:100%;border-collapse:separate;border-spacing:0;font-size:13px}
 #sheet.on .bg{opacity:1}
 #sheet.on .panel{transform:none;opacity:1}
 #sheet .grab{display:none}
+.lver{text-align:center;font-size:11px;color:#8A9AC4;margin-top:8px;letter-spacing:.04em}
 /* phone tabs: every section visible, wrapped evenly — no hidden overflow */
 html.mode-mobile #view .secbar{display:flex!important;flex-wrap:wrap!important;overflow:visible!important;gap:5px!important}
 html.mode-mobile #view .secbar button{flex:1 1 auto!important;justify-content:center;min-width:0}
@@ -3735,6 +3736,7 @@ var TB = {};
       '<div class="it bgrow">' + TB.svg('palette') + '<span class="grow">' + esc(TB.LP('App background', 'خلفية التطبيق')) + '</span></div>' + TB.bgPickerHTML(true) +
       '<div class="it">' + TB.svg('clock') + '<span class="grow" style="font-size:12.5px;color:var(--steel)">' + t('updated') + ': ' + esc(TB.fmtDate(A.pkgTime || A.D.meta.builtAt, true)) + '<br>' + t('stockAt') + ': ' + esc(TB.fmtShort(A.D.meta.stockDate)) + ' | ' + t('salesTo') + ' ' + t('p') + A.D.meta.salesMaxP + ' | ' + t('nqcTo') + ' ' + t('p') + A.D.meta.nqcMaxP + '</span></div>' +
       '<div class="it">' + TB.svg('refresh') + '<span class="grow">' + esc(TB.LP('Reset to default', 'الرجوع للوضع الافتراضي')) + '</span><button class="btn sm rstd" data-act="resetAll">' + esc(TB.LP('Reset', 'رجوع')) + '</button></div>' +
+      '<div class="it">' + TB.svg('info') + '<span class="grow">' + esc(TB.LP('App version', 'إصدار التطبيق')) + '</span><b style="font-variant-numeric:tabular-nums">' + esc(TB.verLabel()) + '</b></div>' +
       '<div class="it">' + TB.svg('logout') + '<span class="grow">' + t('signout') + '</span><button class="btn sm" id="mOut">' + t('signout') + '</button></div></div>';
     TB.openSheet(t('nav_more'), body);
     TB.setMode(A.mode, true);
@@ -3742,7 +3744,8 @@ var TB = {};
   };
   /* ---------- refresh: pull the latest published data + newest app version ---------- */
   /* new app version on GitHub? check on open and whenever the app comes back to the screen, then reload once */
-  TB.BUILD = '6ae38af0';
+  TB.BUILD = '6ae3954b';
+  TB.verLabel = function () { var n = parseInt(TB.BUILD, 16); if (!n) return ''; var d = new Date(n * 1000); return 'v ' + d.toLocaleString('en-GB', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Asia/Riyadh' }); };
   TB.checkVersion = async function () {
     if (location.protocol === 'file:' || TB.BUILD.indexOf('%%') === 0) return;
     try {
@@ -5981,6 +5984,7 @@ var TB = {};
     A.cands = [local, server, EMBED].filter(Boolean).sort(function (a, b) { return (b.publishedAt || '') < (a.publishedAt || '') ? -1 : 1; });
     A.pkg = A.cands[0] || null; A.pkgTime = A.pkg && A.pkg.publishedAt;
     if (A.pkg) $('#loginStamp').textContent = t('updated') + ': ' + TB.fmtDate(A.pkg.publishedAt, true);
+    var lv = document.createElement('div'); lv.className = 'lver'; lv.textContent = TB.verLabel ? TB.verLabel() : ''; $('#loginForm').appendChild(lv);
     $('#loginForm').onsubmit = function (e) { e.preventDefault(); doLogin($('#pw').value); };
     var ar = await TB.devFromHash(); if (ar) { var AR0 = A.lang === 'ar'; $('#loginErr').textContent = ''; $('#loginStamp').textContent = ar === 'ok' ? (AR0 ? 'تم تفعيل هذا الجهاز ✓' : 'This device is now activated ✓') : ar === 'other' ? (AR0 ? 'رابط التفعيل لجهاز آخر' : 'This activation link is for another device') : (AR0 ? 'رابط التفعيل غير صالح' : 'Activation link not valid'); }
     try { var lsv = JSON.parse(TB.ls.get('tbdm.k') || 'null'); if (lsv && lsv.r === 'a') TB.ls.set('tbdm.k', null); } catch (e) { TB.ls.set('tbdm.k', null); }
